@@ -2,6 +2,7 @@ const games = [{"title":"Pokémon Red","platform":"GB","generation":"1ª geraç�
 
 const KEY = "pokemon-collection-andre-v1";
 const SETTINGS_KEY = "pokemon-collection-andre-emu-settings-v1";
+const NOTES_KEY = "pokemon-collection-andre-notes-v1";
 const DEFAULT_DATA_PATH = "https://cdn.emulatorjs.org/stable/data/";
 
 const CORE_INFO = {
@@ -14,6 +15,7 @@ const EMULATABLE_PLATFORMS = Object.keys(CORE_INFO);
 const CATALOG_ONLY_PLATFORMS = ["3DS","Switch","PC","PC/Android"];
 
 let state = JSON.parse(localStorage.getItem(KEY) || "{}");
+let notes = JSON.parse(localStorage.getItem(NOTES_KEY) || "{}");
 let settings = Object.assign({
   ndsCore: "melonds",
   dataPath: DEFAULT_DATA_PATH
@@ -114,6 +116,11 @@ async function removeBios(platform) {
 /* ---------- persistence helpers ---------- */
 function saveState() { localStorage.setItem(KEY, JSON.stringify(state)); updateStats(); }
 function saveSettings() { localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings)); }
+function saveNotes() { localStorage.setItem(NOTES_KEY, JSON.stringify(notes)); }
+
+function escapeAttr(s) {
+  return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
 
 function getStatus(i) { return state[i] || "not-started"; }
 function statusLabel(s) { return s === "done" ? "Concluído" : s === "playing" ? "Em andamento" : "Não iniciado"; }
@@ -184,7 +191,14 @@ function render() {
           ${romMeta ? `<span class="rom-filename" title="${romMeta.filename}">${romMeta.filename}</span>` : ""}
         </div>`;
     } else {
-      romRowHtml = `<div class="rom-row"><span class="badge catalog-badge">Somente catálogo (sem emulador integrado)</span></div>`;
+      const noteVal = notes[g.i] || "";
+      romRowHtml = `
+        <div class="rom-row">
+          <span class="badge catalog-badge">Somente catálogo (sem emulador integrado)</span>
+        </div>
+        <div class="note-row">
+          <input type="text" class="note-input" placeholder="Onde eu jogo isso (ex.: Switch físico, 3DS, cloud...)" value="${escapeAttr(noteVal)}" data-action="note" data-i="${g.i}">
+        </div>`;
     }
 
     card.innerHTML = `
@@ -221,6 +235,11 @@ function render() {
     });
     const playBtn = card.querySelector('[data-action="play"]');
     if (playBtn) playBtn.addEventListener("click", () => openPlayer(g.i));
+    const noteInput = card.querySelector('[data-action="note"]');
+    if (noteInput) noteInput.addEventListener("input", e => {
+      notes[g.i] = e.target.value;
+      saveNotes();
+    });
 
     grid.appendChild(card);
   });
@@ -426,7 +445,7 @@ async function init() {
 
   $("#exportBtn").addEventListener("click", () => {
     const romList = games.map((g, i) => romIndex.has(i) ? { title: g.title, platform: g.platform, filename: romIndex.get(i).filename } : null).filter(Boolean);
-    const payload = { exportedAt: new Date().toISOString(), progress: state, romsAdded: romList, emulatorSettings: settings };
+    const payload = { exportedAt: new Date().toISOString(), progress: state, romsAdded: romList, emulatorSettings: settings, notes };
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob); a.download = "pokemon-collection-progresso.json"; a.click();

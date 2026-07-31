@@ -15,7 +15,7 @@ Este app **não contém, não busca e não baixa** nenhuma ROM, BIOS ou firmware
    - Ver quantos jogos de cada plataforma já têm ROM.
    - Enviar um **BIOS/firmware opcional** para GBA e NDS (melhora compatibilidade; sem ele o emulador tenta rodar mesmo assim).
    - Escolher o núcleo do NDS (`melonds`, `desmume`, `desmume2015`) — se o jogo não iniciar sem BIOS, troque para `desmume`.
-5. 3DS, Switch e jogos de PC aparecem só como catálogo (status/nota), sem emulador integrado — não existe emulação madura de 3DS/Switch em navegador, e os principais emuladores nativos desse tipo foram encerrados após ações judiciais da Nintendo em 2024.
+5. 3DS, Switch e jogos de PC aparecem só como catálogo (status/nota + um campo livre "onde eu jogo isso"), sem emulador integrado — não existe emulação madura de 3DS/Switch em navegador, e os principais emuladores nativos desse tipo foram encerrados após ações judiciais da Nintendo em 2024.
 
 ## Instalar como app (PWA)
 

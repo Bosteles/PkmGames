@@ -62,6 +62,10 @@ button,input,select{font:inherit}
 .check input{width:20px;height:20px;accent-color:var(--ok)}
 .rom-row{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .rom-filename{font-size:11px;color:var(--muted);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex-basis:100%}
+.note-row{margin-top:8px}
+.note-input{width:100%;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:8px 11px;outline:none;font-size:12px}
+.note-input:focus{border-color:var(--accent2)}
+.note-input::placeholder{color:var(--muted)}
 .file-label{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:8px 11px;border-radius:10px;cursor:pointer;font-size:12px;font-weight:700}
 .file-label input{display:none}
 .empty{text-align:center;padding:50px;color:var(--muted)}
