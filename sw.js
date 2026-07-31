@@ -1,5 +1,5 @@
-const SHELL_CACHE = "pkm-collection-shell-v1";
-const RUNTIME_CACHE = "pkm-collection-runtime-v1";
+const SHELL_CACHE = "pkm-collection-shell-v2";
+const RUNTIME_CACHE = "pkm-collection-runtime-v2";
 
 const SHELL_FILES = [
   "./",
@@ -38,14 +38,15 @@ self.addEventListener("fetch", (event) => {
   const isSameOrigin = url.origin === self.location.origin;
 
   if (isSameOrigin) {
+    // App shell (HTML/CSS/JS): always prefer the network so a deploy is
+    // visible immediately, falling back to cache only when offline. A
+    // cache-first/stale-while-revalidate strategy here previously caused
+    // index.html and app.js to drift out of sync across deploys.
     event.respondWith(
-      caches.match(req).then((cached) => {
-        const network = fetch(req).then((res) => {
-          caches.open(SHELL_CACHE).then((cache) => cache.put(req, res.clone()));
-          return res;
-        }).catch(() => cached);
-        return cached || network;
-      })
+      fetch(req).then((res) => {
+        caches.open(SHELL_CACHE).then((cache) => cache.put(req, res.clone()));
+        return res;
+      }).catch(() => caches.match(req))
     );
     return;
   }

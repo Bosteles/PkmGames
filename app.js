@@ -488,6 +488,12 @@ function switchView(view) {
   if (view === "emulators") renderEmulatorSettings();
 }
 
+function on(selector, event, handler) {
+  const el = $(selector);
+  if (el) el.addEventListener(event, handler);
+  else console.warn(`[init] elemento "${selector}" não encontrado — pulando listener de "${event}" (provavelmente index.html e app.js ficaram em versões diferentes; force um refresh completo).`);
+}
+
 /* ---------- init ---------- */
 async function init() {
   initSelect("#platform", games.map(g => g.platform));
@@ -498,22 +504,29 @@ async function init() {
   const biosEntries = await idbGetAll("biosMeta");
   biosEntries.forEach(([k, v]) => { biosInfo[k] = v; });
 
-  ["#search", "#platform", "#generation", "#status", "#romFilter", "#sort"].forEach(id =>
-    $(id).addEventListener("input", render)
-  );
+  // Render the catalog before wiring up any optional/secondary controls, so a
+  // missing element (e.g. a stale cached HTML during a deploy) never blocks
+  // the whole collection from showing up.
+  try {
+    render();
+  } catch (e) {
+    console.error("Falha ao renderizar o catálogo:", e);
+  }
+
+  ["#search", "#platform", "#generation", "#status", "#romFilter", "#sort"].forEach(id => on(id, "input", render));
   document.querySelectorAll(".tab").forEach(b => b.addEventListener("click", () => {
     document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
     b.classList.add("active"); activeTab = b.dataset.tab; render();
   }));
   document.querySelectorAll(".view-btn").forEach(b => b.addEventListener("click", () => switchView(b.dataset.view)));
 
-  $("#resetBtn").addEventListener("click", () => {
+  on("#resetBtn", "click", () => {
     if (confirm("Deseja apagar todo o progresso salvo? (as ROMs importadas não serão apagadas)")) {
       state = {}; saveState(); render();
     }
   });
 
-  $("#exportBtn").addEventListener("click", () => {
+  on("#exportBtn", "click", () => {
     const romList = games.map((g, i) => romIndex.has(i) ? { title: g.title, platform: g.platform, filename: romIndex.get(i).filename } : null).filter(Boolean);
     const payload = { exportedAt: new Date().toISOString(), progress: state, romsAdded: romList, emulatorSettings: settings, notes };
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
@@ -522,11 +535,9 @@ async function init() {
     URL.revokeObjectURL(a.href);
   });
 
-  $("#closePlayModal").addEventListener("click", closePlayer);
-  $("#fullscreenBtn").addEventListener("click", toggleFullscreen);
-  $("#playModal").addEventListener("click", e => { if (e.target.id === "playModal") closePlayer(); });
-
-  render();
+  on("#closePlayModal", "click", closePlayer);
+  on("#fullscreenBtn", "click", toggleFullscreen);
+  on("#playModal", "click", e => { if (e.target.id === "playModal") closePlayer(); });
 }
 
 /* ---------- PWA: service worker + install prompt ---------- */
@@ -542,7 +553,7 @@ window.addEventListener("beforeinstallprompt", e => {
   $("#installBtn").hidden = false;
 });
 document.addEventListener("DOMContentLoaded", () => {
-  $("#installBtn").addEventListener("click", async () => {
+  on("#installBtn", "click", async () => {
     if (!deferredInstallPrompt) return;
     deferredInstallPrompt.prompt();
     await deferredInstallPrompt.userChoice;
