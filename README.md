@@ -28,6 +28,10 @@ Abrindo o site pelo Chrome/Edge no Android ou desktop, aparece o botão **"Insta
 - `app.js` — catálogo, progresso, ROMs (IndexedDB), configuração de emuladores e player (EmulatorJS via iframe isolado)
 - `manifest.webmanifest`, `sw.js`, `icons/` — suporte a PWA (instalação e uso offline)
 
+## Save states
+
+O progresso dentro do jogo (save/save state) é salvo automaticamente pelo próprio emulador no armazenamento do navegador, associado àquele jogo específico — ao reabrir o mesmo jogo depois, ele carrega sozinho de onde parou, sem precisar baixar/enviar arquivo nenhum. Isso fica só nesse navegador/aparelho; use o menu do emulador (dentro do player) se quiser baixar um save avulso para levar a outro dispositivo.
+
 ## Backup
 
 O botão **"Exportar progresso"** gera um JSON com o progresso, a lista de ROMs adicionadas (apenas nomes, não os arquivos) e as configurações do emulador — útil para levar de um aparelho a outro.

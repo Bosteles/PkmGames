@@ -381,6 +381,7 @@ async function openPlayer(i) {
         ${biosUrl ? `window.EJS_biosUrl = ${JSON.stringify(biosUrl)};` : ""}
         window.EJS_pathtodata = ${JSON.stringify(dataPath)};
         window.EJS_gameName = ${JSON.stringify(g.title)};
+        window.EJS_gameID = ${JSON.stringify("pkm-collection-andre-" + i + "-" + core)};
         window.EJS_startOnLoaded = true;
 
         function notifyParent(status, message) {
