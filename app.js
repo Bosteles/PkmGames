@@ -448,27 +448,39 @@ function closePlayer() {
   $("#playModal").hidden = true;
 
   const iframe = $("#emuFrame");
-  if (iframe) {
-    try {
-      const canvases = iframe.contentDocument ? iframe.contentDocument.querySelectorAll("canvas") : [];
-      canvases.forEach(c => {
-        const gl = c.getContext("webgl2") || c.getContext("webgl") || c.getContext("experimental-webgl");
-        const ext = gl && gl.getExtension("WEBGL_lose_context");
-        if (ext) ext.loseContext();
-      });
-    } catch (e) { /* iframe already gone or inaccessible, nothing to clean up */ }
-    // Force a hard unload of the emulator's page (frees WebGL/audio resources)
-    // before detaching the node — just removing it can leave them dangling
-    // until garbage collection, breaking the next "Jogar" attempt.
-    iframe.src = "about:blank";
-  }
-  setTimeout(() => { $("#playModalBody").innerHTML = ""; }, 60);
+  const play = currentPlay;
+  currentPlay = null;
 
-  if (currentPlay) {
-    URL.revokeObjectURL(currentPlay.romUrl);
-    if (currentPlay.biosUrl) URL.revokeObjectURL(currentPlay.biosUrl);
-    currentPlay = null;
-  }
+  // Give EmulatorJS a moment to finish flushing any pending save to its own
+  // persistent storage before we force-release WebGL/audio and unload the
+  // frame. Tearing it down instantly (as we used to) can race with — and
+  // lose — an in-flight autosave that was still writing to IndexedDB.
+  setTimeout(() => {
+    if (iframe) {
+      try {
+        // Best-effort: ask EmulatorJS to save immediately, if this build
+        // exposes that API. Harmless no-op if it doesn't.
+        iframe.contentWindow?.EJS_emulator?.gameManager?.saveSaveFiles?.();
+      } catch (e) { /* API not present in this EmulatorJS build, ignore */ }
+      try {
+        const canvases = iframe.contentDocument ? iframe.contentDocument.querySelectorAll("canvas") : [];
+        canvases.forEach(c => {
+          const gl = c.getContext("webgl2") || c.getContext("webgl") || c.getContext("experimental-webgl");
+          const ext = gl && gl.getExtension("WEBGL_lose_context");
+          if (ext) ext.loseContext();
+        });
+      } catch (e) { /* iframe already gone or inaccessible, nothing to clean up */ }
+      // Force a hard unload of the emulator's page (frees WebGL/audio resources)
+      // before detaching the node — just removing it can leave them dangling
+      // until garbage collection, breaking the next "Jogar" attempt.
+      iframe.src = "about:blank";
+    }
+    $("#playModalBody").innerHTML = "";
+    if (play) {
+      URL.revokeObjectURL(play.romUrl);
+      if (play.biosUrl) URL.revokeObjectURL(play.biosUrl);
+    }
+  }, 900);
 }
 
 /* ---------- misc UI ---------- */
