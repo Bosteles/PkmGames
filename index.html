@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#101522">
+<title>Pokémon Collection by André</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="header">
+  <div class="header-inner">
+    <div class="brand"><div class="ball"></div><div><h1>Pokémon Collection</h1><small>by André</small></div></div>
+    <div class="header-actions">
+      <button class="btn secondary" id="installBtn" hidden>Instalar app</button>
+      <button class="btn secondary" id="exportBtn">Exportar progresso</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-card">
+    <h2>Sua jornada Pokémon,<br>bem organizada.</h2>
+    <p>Catálogo pessoal para acompanhar jogos oficiais, remakes, spin-offs e projetos de fãs — agora com emulador integrado para as plataformas GB, GBC, GBA e NDS. O progresso e as ROMs adicionadas ficam salvos automaticamente neste aparelho.</p>
+    <div class="stats">
+      <div class="stat"><strong id="totalCount">0</strong><span>jogos no catálogo</span></div>
+      <div class="stat"><strong id="doneCount">0</strong><span>concluídos</span></div>
+      <div class="stat"><strong id="playingCount">0</strong><span>em andamento</span></div>
+      <div class="stat"><strong id="romCount">0</strong><span>ROMs adicionadas</span></div>
+      <div class="stat"><strong id="percentCount">0%</strong><span>progresso total</span></div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-label"><span>Progresso da coleção</span><span id="progressText">0 de 0</span></div>
+      <div class="progress"><div id="progressBar"></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="notice">
+  <div><strong>Sobre as ROMs:</strong> este app não contém, não busca e não baixa nenhuma ROM ou BIOS — você mesmo importa os arquivos de jogos que tem o direito de usar. As notas do catálogo são avaliações editoriais (0 a 10) usadas só para comparação, não são notas oficiais.</div>
+  <div><strong>Sobre os emuladores:</strong> GB, GBC, GBA e NDS rodam direto no navegador (open source, via EmulatorJS). 3DS, Switch e jogos de PC ficam só como catálogo/anotação — não há emulador integrado para essas plataformas nesta versão.</div>
+</div>
+
+<nav class="views">
+  <button class="view-btn active" data-view="collection">📚 Coleção</button>
+  <button class="view-btn" data-view="emulators">🕹️ Emuladores</button>
+</nav>
+
+<section id="collectionView">
+  <section class="controls">
+    <input id="search" class="control search" placeholder="Buscar jogo, região ou descrição...">
+    <select id="platform" class="control"><option value="">Todas as plataformas</option></select>
+    <select id="generation" class="control"><option value="">Todas as gerações</option></select>
+    <select id="status" class="control">
+      <option value="">Todos os status</option>
+      <option value="not-started">Não iniciado</option>
+      <option value="playing">Em andamento</option>
+      <option value="done">Concluído</option>
+    </select>
+    <select id="romFilter" class="control">
+      <option value="">ROM: todas</option>
+      <option value="with-rom">Com ROM adicionada</option>
+      <option value="without-rom">Sem ROM</option>
+    </select>
+    <select id="sort" class="control">
+      <option value="default">Ordem do catálogo</option>
+      <option value="rating-desc">Maior nota</option>
+      <option value="rating-asc">Menor nota</option>
+      <option value="year-desc">Mais recentes</option>
+      <option value="year-asc">Mais antigos</option>
+      <option value="name-asc">Nome A–Z</option>
+    </select>
+    <button id="resetBtn" class="btn">Resetar</button>
+  </section>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="all">Todos</button>
+    <button class="tab" data-tab="official">Oficiais</button>
+    <button class="tab" data-tab="fan">Projetos de fãs</button>
+    <button class="tab" data-tab="main">Série principal</button>
+    <button class="tab" data-tab="spinoff">Spin-offs</button>
+  </nav>
+
+  <main class="content">
+    <div id="grid" class="grid"></div>
+    <div id="empty" class="empty" hidden>Nenhum jogo encontrado com esses filtros.</div>
+  </main>
+</section>
+
+<section id="emulatorsView" class="content" hidden>
+  <div class="emu-grid" id="emuGrid"></div>
+</section>
+
+<footer class="footer">
+  <strong>Dica:</strong> toque no nome do status de cada jogo para alternar entre "não iniciado", "em andamento" e "concluído". Em jogos de GB/GBC/GBA/NDS, use "Adicionar ROM" para importar seu próprio arquivo e depois "Jogar". Configure núcleos e BIOS opcionais na aba "Emuladores".
+</footer>
+
+<div class="modal-overlay" id="playModal" hidden>
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="playModalTitle">Jogo</h3>
+      <button class="btn secondary small" id="closePlayModal">Fechar</button>
+    </div>
+    <div class="modal-body" id="playModalBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
