@@ -26,6 +26,8 @@ let activeView = "collection";
 let romIndex = new Map();   // i -> {filename, size, addedAt}
 let biosInfo = {};          // platform -> {filename, size}
 let currentPlay = null;     // {romUrl, biosUrl}
+let pendingCleanup = null;  // { run: fn, timer } — teardown of the previous iframe, delayed to let it save
+const SAVE_FLUSH_MS = 5000; // must match EJS_fixedSaveInterval below
 
 const $ = s => document.querySelector(s);
 const icons = {"GB":"🔴","GBC":"🟡","GBA":"🔵","NDS":"🟣","3DS":"🟠","Switch":"⚡","PC":"💻","PC/Android":"📱"};
@@ -350,6 +352,16 @@ async function openPlayer(i) {
   const g = games[i];
   const meta = romIndex.get(i);
   if (!meta) return;
+
+  // If a previous session is still in its post-close save-flush grace
+  // period, finish that teardown right now instead of letting the new
+  // iframe below rip it out of the DOM prematurely.
+  if (pendingCleanup) {
+    clearTimeout(pendingCleanup.timer);
+    pendingCleanup.run();
+    pendingCleanup = null;
+  }
+
   const romBlob = await idbGet("roms", i);
   if (!romBlob) { toast("Não foi possível carregar essa ROM."); return; }
 
@@ -381,7 +393,8 @@ async function openPlayer(i) {
         ${biosUrl ? `window.EJS_biosUrl = ${JSON.stringify(biosUrl)};` : ""}
         window.EJS_pathtodata = ${JSON.stringify(dataPath)};
         window.EJS_gameName = ${JSON.stringify(g.title)};
-        window.EJS_gameID = ${JSON.stringify("pkm-collection-andre-" + i + "-" + core)};
+        window.EJS_gameID = ${JSON.stringify(i)};
+        window.EJS_fixedSaveInterval = ${SAVE_FLUSH_MS};
         window.EJS_startOnLoaded = true;
 
         function notifyParent(status, message) {
@@ -451,17 +464,8 @@ function closePlayer() {
   const play = currentPlay;
   currentPlay = null;
 
-  // Give EmulatorJS a moment to finish flushing any pending save to its own
-  // persistent storage before we force-release WebGL/audio and unload the
-  // frame. Tearing it down instantly (as we used to) can race with — and
-  // lose — an in-flight autosave that was still writing to IndexedDB.
-  setTimeout(() => {
+  const runCleanup = () => {
     if (iframe) {
-      try {
-        // Best-effort: ask EmulatorJS to save immediately, if this build
-        // exposes that API. Harmless no-op if it doesn't.
-        iframe.contentWindow?.EJS_emulator?.gameManager?.saveSaveFiles?.();
-      } catch (e) { /* API not present in this EmulatorJS build, ignore */ }
       try {
         const canvases = iframe.contentDocument ? iframe.contentDocument.querySelectorAll("canvas") : [];
         canvases.forEach(c => {
@@ -480,7 +484,15 @@ function closePlayer() {
       URL.revokeObjectURL(play.romUrl);
       if (play.biosUrl) URL.revokeObjectURL(play.biosUrl);
     }
-  }, 900);
+  };
+
+  // EmulatorJS (via EJS_fixedSaveInterval) flushes the game's save to
+  // IndexedDB every SAVE_FLUSH_MS at most — closing right away can cut that
+  // off mid-write. Wait slightly longer than that interval before we
+  // force-release WebGL/audio and unload the frame. If the user opens
+  // another game before this fires, openPlayer() runs it immediately instead.
+  const timer = setTimeout(() => { pendingCleanup = null; runCleanup(); }, SAVE_FLUSH_MS + 500);
+  pendingCleanup = { run: runCleanup, timer };
 }
 
 /* ---------- misc UI ---------- */

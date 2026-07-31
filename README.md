@@ -32,6 +32,8 @@ Abrindo o site pelo Chrome/Edge no Android ou desktop, aparece o botão **"Insta
 
 O progresso dentro do jogo (save/save state) é salvo automaticamente pelo próprio emulador no armazenamento do navegador, associado àquele jogo específico — ao reabrir o mesmo jogo depois, ele carrega sozinho de onde parou, sem precisar baixar/enviar arquivo nenhum. Isso fica só nesse navegador/aparelho; use o menu do emulador (dentro do player) se quiser baixar um save avulso para levar a outro dispositivo.
 
+O emulador só grava esse save no armazenamento a cada poucos segundos (não a cada mudança), então ao fechar o jogo o app espera um pouco antes de liberar os recursos, dando tempo dessa gravação terminar — feche o player normalmente pelo botão "Fechar" em vez de simplesmente recarregar a página logo depois de salvar.
+
 ## Backup
 
 O botão **"Exportar progresso"** gera um JSON com o progresso, a lista de ROMs adicionadas (apenas nomes, não os arquivos) e as configurações do emulador — útil para levar de um aparelho a outro.
