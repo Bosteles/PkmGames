@@ -671,9 +671,21 @@ async function init() {
   on("#fullscreenBtn", "click", toggleFullscreen);
   on("#playModal", "click", e => { if (e.target.id === "playModal") closePlayer(); });
 
-  on("#importFolderBtn", "click", () => $("#folderPicker").click());
+  on("#importFolderBtn", "click", () => {
+    try {
+      $("#folderPicker").click();
+    } catch (e) {
+      console.error("Falha ao abrir o seletor de arquivos:", e);
+      toast("Não foi possível abrir o seletor de arquivos: " + e.message);
+    }
+  });
   on("#folderPicker", "change", e => {
-    handleFolderImport(e.target.files);
+    try {
+      handleFolderImport(e.target.files);
+    } catch (e) {
+      console.error("Falha ao importar arquivos:", e);
+      toast("Erro ao importar: " + e.message);
+    }
     e.target.value = "";
   });
   on("#confirmImportBtn", "click", confirmImport);
