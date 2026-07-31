@@ -365,29 +365,82 @@ async function openPlayer(i) {
 
   const dataPath = settings.dataPath.endsWith("/") ? settings.dataPath : settings.dataPath + "/";
   const srcdoc = `<!DOCTYPE html><html><head><meta charset="utf-8">
-    <style>html,body{margin:0;background:#000;height:100%;overflow:hidden}#game{width:100%;height:100%}</style></head>
-    <body><div id="game"></div>
-    <script>
-      window.EJS_player = '#game';
-      window.EJS_core = ${JSON.stringify(core)};
-      window.EJS_gameUrl = ${JSON.stringify(romUrl)};
-      ${biosUrl ? `window.EJS_biosUrl = ${JSON.stringify(biosUrl)};` : ""}
-      window.EJS_pathtodata = ${JSON.stringify(dataPath)};
-      window.EJS_gameName = ${JSON.stringify(g.title)};
-      window.EJS_startOnLoaded = true;
-    <\/script>
-    <script src="${dataPath}loader.js"><\/script>
+    <style>
+      html,body{margin:0;background:#000;height:100%;overflow:hidden}
+      #game{width:100%;height:100%}
+      #loadingOverlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+        color:#aab4cd;font:14px/1.5 system-ui,sans-serif;text-align:center;padding:24px;background:#000}
+    </style></head>
+    <body>
+      <div id="game"></div>
+      <div id="loadingOverlay">Carregando emulador…</div>
+      <script>
+        window.EJS_player = '#game';
+        window.EJS_core = ${JSON.stringify(core)};
+        window.EJS_gameUrl = ${JSON.stringify(romUrl)};
+        ${biosUrl ? `window.EJS_biosUrl = ${JSON.stringify(biosUrl)};` : ""}
+        window.EJS_pathtodata = ${JSON.stringify(dataPath)};
+        window.EJS_gameName = ${JSON.stringify(g.title)};
+        window.EJS_startOnLoaded = true;
+
+        function notifyParent(status, message) {
+          parent.postMessage({ source: "pkm-emu", status: status, message: message || "" }, "*");
+        }
+        function clearOverlay() {
+          var o = document.getElementById("loadingOverlay");
+          if (o) o.remove();
+        }
+        window.EJS_onGameStart = function () { clearOverlay(); notifyParent("started"); };
+        window.addEventListener("error", function (e) {
+          notifyParent("error", (e && e.message) || "Erro desconhecido ao carregar o emulador.");
+        });
+        setTimeout(function () {
+          if (document.getElementById("loadingOverlay")) {
+            notifyParent("timeout", "O emulador está demorando muito para iniciar (rede lenta ou bloqueada).");
+          }
+        }, 20000);
+
+        var loaderScript = document.createElement("script");
+        loaderScript.src = ${JSON.stringify(dataPath)} + "loader.js";
+        loaderScript.onerror = function () {
+          notifyParent("error", "Não foi possível carregar os arquivos do emulador (CDN bloqueada ou sem internet).");
+        };
+        document.body.appendChild(loaderScript);
+      <\/script>
     </body></html>`;
 
   $("#playModalTitle").textContent = `${icons[g.platform] || "🎮"} ${g.title}`;
+  $("#playModalStatus").hidden = true;
   const body = $("#playModalBody");
   body.innerHTML = "";
   const iframe = document.createElement("iframe");
   iframe.id = "emuFrame";
-  iframe.allow = "gamepad; fullscreen; autoplay";
+  iframe.allow = "gamepad *; fullscreen *; autoplay";
+  iframe.allowFullscreen = true;
   iframe.srcdoc = srcdoc;
   body.appendChild(iframe);
   $("#playModal").hidden = false;
+}
+
+window.addEventListener("message", (e) => {
+  if (!e.data || e.data.source !== "pkm-emu") return;
+  const statusEl = $("#playModalStatus");
+  if (e.data.status === "started") {
+    statusEl.hidden = true;
+  } else if (e.data.status === "error" || e.data.status === "timeout") {
+    statusEl.hidden = false;
+    statusEl.textContent = "⚠️ " + e.data.message;
+  }
+});
+
+function toggleFullscreen() {
+  const iframe = $("#emuFrame");
+  if (!iframe) return;
+  if (document.fullscreenElement) {
+    document.exitFullscreen();
+  } else {
+    (iframe.requestFullscreen || iframe.webkitRequestFullscreen)?.call(iframe);
+  }
 }
 
 function closePlayer() {
@@ -453,6 +506,7 @@ async function init() {
   });
 
   $("#closePlayModal").addEventListener("click", closePlayer);
+  $("#fullscreenBtn").addEventListener("click", toggleFullscreen);
   $("#playModal").addEventListener("click", e => { if (e.target.id === "playModal") closePlayer(); });
 
   render();
