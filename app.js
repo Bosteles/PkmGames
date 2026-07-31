@@ -13,6 +13,35 @@ const CORE_INFO = {
 };
 const EMULATABLE_PLATFORMS = Object.keys(CORE_INFO);
 const CATALOG_ONLY_PLATFORMS = ["3DS","Switch","PC","PC/Android"];
+const ROM_EXT_PLATFORMS = { ".gb": ["GB","GBC"], ".sgb": ["GB","GBC"], ".gbc": ["GB","GBC"], ".gba": ["GBA"], ".nds": ["NDS"] };
+
+function extOf(filename) {
+  const m = String(filename).match(/(\.[a-z0-9]+)$/i);
+  return m ? m[0].toLowerCase() : "";
+}
+function normalizeForMatch(s) {
+  return String(s)
+    .normalize("NFD").replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .replace(/\.[a-z0-9]{1,5}$/i, "")
+    .replace(/[([][^)\]]*[)\]]/g, " ")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+function squash(s) { return normalizeForMatch(s).replace(/\s+/g, ""); }
+function isLikelyMatch(filename, title) {
+  const f = squash(filename), t = squash(title);
+  if (!t || !f) return false;
+  return f.includes(t) || t.includes(f);
+}
+function matchFileToGames(filename) {
+  const platforms = ROM_EXT_PLATFORMS[extOf(filename)];
+  if (!platforms) return [];
+  return games
+    .map((g, i) => ({ g, i }))
+    .filter(({ g }) => platforms.includes(g.platform))
+    .filter(({ g }) => isLikelyMatch(filename, g.title));
+}
 
 let state = JSON.parse(localStorage.getItem(KEY) || "{}");
 let notes = JSON.parse(localStorage.getItem(NOTES_KEY) || "{}");
@@ -229,7 +258,12 @@ function render() {
     const fileInput = card.querySelector('[data-action="add-rom"]');
     if (fileInput) fileInput.addEventListener("change", e => {
       const file = e.target.files[0];
-      if (file) addRom(g.i, file);
+      if (!file) return;
+      if (!isLikelyMatch(file.name, g.title)) {
+        const proceed = confirm(`O nome do arquivo "${file.name}" não parece mencionar "${g.title}". Adicionar mesmo assim?`);
+        if (!proceed) { e.target.value = ""; return; }
+      }
+      addRom(g.i, file);
     });
     const removeBtn = card.querySelector('[data-action="remove-rom"]');
     if (removeBtn) removeBtn.addEventListener("click", () => {
@@ -513,6 +547,79 @@ function switchView(view) {
   if (view === "emulators") renderEmulatorSettings();
 }
 
+/* ---------- bulk folder import ---------- */
+let importCandidates = []; // [{ file, matchIndex }]
+
+function handleFolderImport(fileList) {
+  const files = Array.from(fileList).filter(f => ROM_EXT_PLATFORMS[extOf(f.name)]);
+  if (!files.length) {
+    toast("Nenhum arquivo .gb/.gbc/.sgb/.gba/.nds encontrado nessa pasta.");
+    return;
+  }
+  importCandidates = files.map(file => {
+    const matches = matchFileToGames(file.name);
+    return { file, matchIndex: matches.length === 1 ? matches[0].i : null };
+  });
+  renderImportReview();
+  $("#importModal").hidden = false;
+}
+
+function importOptionsHtml(selectedIndex) {
+  const groups = EMULATABLE_PLATFORMS.reduce((acc, p) => {
+    if (p === "GBC" && CORE_INFO.GB.core === CORE_INFO.GBC.core) return acc;
+    acc[p] = [];
+    return acc;
+  }, {});
+  games.forEach((g, i) => {
+    const key = g.platform === "GBC" ? "GB" : g.platform;
+    if (groups[key]) groups[key].push(i);
+  });
+  let html = `<option value="">— não importar —</option>`;
+  Object.entries(groups).forEach(([platform, indices]) => {
+    html += `<optgroup label="${CORE_INFO[platform].label}">`;
+    indices.forEach(i => {
+      html += `<option value="${i}" ${i === selectedIndex ? "selected" : ""}>${escapeAttr(games[i].title)}</option>`;
+    });
+    html += `</optgroup>`;
+  });
+  return html;
+}
+
+function renderImportReview() {
+  const list = $("#importList");
+  list.innerHTML = "";
+  const matchedCount = importCandidates.filter(c => c.matchIndex !== null).length;
+  $("#importModalHint").textContent =
+    `${importCandidates.length} arquivo(s) encontrados, ${matchedCount} associado(s) automaticamente pelo nome. Confira ou ajuste antes de importar — arquivos sem jogo selecionado não são importados.`;
+
+  importCandidates.forEach((cand, idx) => {
+    const row = document.createElement("div");
+    row.className = "import-row";
+    const overwrite = cand.matchIndex !== null && romIndex.has(cand.matchIndex);
+    row.innerHTML = `
+      <span class="import-filename" title="${escapeAttr(cand.file.name)}">${cand.file.name}</span>
+      <select class="control import-select" data-idx="${idx}">${importOptionsHtml(cand.matchIndex)}</select>
+      ${overwrite ? `<span class="import-overwrite-badge">já tem ROM — será substituída</span>` : ""}
+    `;
+    list.appendChild(row);
+  });
+}
+
+function confirmImport() {
+  const selects = document.querySelectorAll("#importList .import-select");
+  let imported = 0;
+  selects.forEach((sel, idx) => {
+    const val = sel.value;
+    if (val === "") return;
+    const gameIndex = Number(val);
+    addRom(gameIndex, importCandidates[idx].file);
+    imported++;
+  });
+  importCandidates = [];
+  $("#importModal").hidden = true;
+  toast(imported > 0 ? `${imported} ROM(s) importada(s).` : "Nenhuma ROM selecionada para importar.");
+}
+
 function on(selector, event, handler) {
   const el = $(selector);
   if (el) el.addEventListener(event, handler);
@@ -563,6 +670,15 @@ async function init() {
   on("#closePlayModal", "click", closePlayer);
   on("#fullscreenBtn", "click", toggleFullscreen);
   on("#playModal", "click", e => { if (e.target.id === "playModal") closePlayer(); });
+
+  on("#importFolderBtn", "click", () => $("#folderPicker").click());
+  on("#folderPicker", "change", e => {
+    handleFolderImport(e.target.files);
+    e.target.value = "";
+  });
+  on("#confirmImportBtn", "click", confirmImport);
+  on("#closeImportModal", "click", () => { importCandidates = []; $("#importModal").hidden = true; });
+  on("#importModal", "click", e => { if (e.target.id === "importModal") { importCandidates = []; $("#importModal").hidden = true; } });
 }
 
 /* ---------- PWA: service worker + install prompt ---------- */

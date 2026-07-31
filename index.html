@@ -76,6 +76,12 @@
     <button id="resetBtn" class="btn">Resetar</button>
   </section>
 
+  <section class="import-bar">
+    <button class="btn secondary" id="importFolderBtn">📁 Importar pasta de ROMs</button>
+    <span class="import-bar-hint">Escolhe uma pasta com seus arquivos .gb/.gbc/.gba/.nds e o app tenta casar cada um com o jogo certo pelo nome do arquivo.</span>
+    <input type="file" id="folderPicker" webkitdirectory multiple hidden>
+  </section>
+
   <nav class="tabs">
     <button class="tab active" data-tab="all">Todos</button>
     <button class="tab" data-tab="official">Oficiais</button>
@@ -109,6 +115,22 @@
     </div>
     <p class="modal-status" id="playModalStatus" hidden></p>
     <div class="modal-body" id="playModalBody"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="importModal" hidden>
+  <div class="modal">
+    <div class="modal-head">
+      <h3>Revisar importação de ROMs</h3>
+      <div class="modal-head-actions">
+        <button class="btn secondary small" id="closeImportModal">Cancelar</button>
+      </div>
+    </div>
+    <p class="modal-status" id="importModalHint"></p>
+    <div class="import-list" id="importList"></div>
+    <div class="import-modal-footer">
+      <button class="btn" id="confirmImportBtn">Importar selecionados</button>
+    </div>
   </div>
 </div>
 
