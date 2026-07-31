@@ -67,8 +67,6 @@ let activeTab = "all";
 let activeView = "collection";
 let romIndex = new Map();   // i -> {filename, size, addedAt}
 let biosInfo = {};          // platform -> {filename, size}
-let currentPlay = null;     // {romUrl, biosUrl}
-let pendingCleanup = null;  // { run: fn, timer } — teardown of the previous iframe, delayed to let it save
 const SAVE_FLUSH_MS = 5000; // must match EJS_fixedSaveInterval below
 
 const $ = s => document.querySelector(s);
@@ -395,19 +393,27 @@ function renderEmulatorSettings() {
 }
 
 /* ---------- play modal ---------- */
-async function openPlayer(i) {
+// Reopening the player by tearing down and rebuilding an iframe within the
+// same page turned out to leave some of EmulatorJS's internal state (worker,
+// audio context, or similar) behind, so a second session could get stuck on
+// our loading overlay — a plain page refresh always worked. So "Jogar" and
+// "Fechar" now do a real navigation instead: index.html?play=N auto-opens
+// that game's player once the catalog data loads, and closing navigates
+// back to plain index.html. A full navigation guarantees the browser itself
+// tears down every worker/audio/WebGL resource, which is far more reliable
+// than trying to do it by hand.
+function openPlayer(i) {
+  if (!romIndex.has(i)) { toast("Adicione uma ROM antes de jogar."); return; }
+  location.href = "index.html?play=" + i;
+}
+
+async function startPlayerFromQuery() {
+  const raw = new URLSearchParams(location.search).get("play");
+  if (raw === null || !/^\d+$/.test(raw)) return;
+  const i = Number(raw);
   const g = games[i];
   const meta = romIndex.get(i);
-  if (!meta) return;
-
-  // If a previous session is still in its post-close save-flush grace
-  // period, finish that teardown right now instead of letting the new
-  // iframe below rip it out of the DOM prematurely.
-  if (pendingCleanup) {
-    clearTimeout(pendingCleanup.timer);
-    pendingCleanup.run();
-    pendingCleanup = null;
-  }
+  if (!g || !meta) return;
 
   const romBlob = await idbGet("roms", i);
   if (!romBlob) { toast("Não foi possível carregar essa ROM."); return; }
@@ -420,7 +426,6 @@ async function openPlayer(i) {
     const biosBlob = await idbGet("bios", g.platform);
     if (biosBlob) biosUrl = URL.createObjectURL(biosBlob);
   }
-  currentPlay = { romUrl, biosUrl };
 
   const dataPath = settings.dataPath.endsWith("/") ? settings.dataPath : settings.dataPath + "/";
   const srcdoc = `<!DOCTYPE html><html><head><meta charset="utf-8">
@@ -458,6 +463,12 @@ async function openPlayer(i) {
           if (o) o.remove();
         }
         window.EJS_onGameStart = function () { clearOverlay(); notifyParent("started"); };
+        // Diagnostic hooks: EmulatorJS is supposed to call these when it
+        // writes the game's save file to its own storage, and when it loads
+        // a previously-saved one back in. Surfacing them as toasts lets us
+        // actually see whether/when that's happening instead of guessing.
+        window.EJS_onSaveSave = function () { notifyParent("save-written", "Save gravado pelo emulador."); };
+        window.EJS_onLoadSave = function () { notifyParent("save-loaded", "Save carregado pelo emulador."); };
         window.addEventListener("error", function (e) {
           notifyParent("error", (e && e.message) || "Erro desconhecido ao carregar o emulador.");
         });
@@ -503,6 +514,8 @@ window.addEventListener("message", (e) => {
   } else if (e.data.status === "error" || e.data.status === "timeout") {
     statusEl.hidden = false;
     statusEl.textContent = "⚠️ " + e.data.message;
+  } else if (e.data.status === "save-written" || e.data.status === "save-loaded") {
+    toast("💾 " + e.data.message);
   }
 });
 
@@ -517,41 +530,12 @@ function toggleFullscreen() {
 }
 
 function closePlayer() {
-  $("#playModal").hidden = true;
-
-  const iframe = $("#emuFrame");
-  const play = currentPlay;
-  currentPlay = null;
-
-  const runCleanup = () => {
-    if (iframe) {
-      try {
-        const canvases = iframe.contentDocument ? iframe.contentDocument.querySelectorAll("canvas") : [];
-        canvases.forEach(c => {
-          const gl = c.getContext("webgl2") || c.getContext("webgl") || c.getContext("experimental-webgl");
-          const ext = gl && gl.getExtension("WEBGL_lose_context");
-          if (ext) ext.loseContext();
-        });
-      } catch (e) { /* iframe already gone or inaccessible, nothing to clean up */ }
-      // Force a hard unload of the emulator's page (frees WebGL/audio resources)
-      // before detaching the node — just removing it can leave them dangling
-      // until garbage collection, breaking the next "Jogar" attempt.
-      iframe.src = "about:blank";
-    }
-    $("#playModalBody").innerHTML = "";
-    if (play) {
-      URL.revokeObjectURL(play.romUrl);
-      if (play.biosUrl) URL.revokeObjectURL(play.biosUrl);
-    }
-  };
-
-  // EmulatorJS (via EJS_fixedSaveInterval) flushes the game's save to
-  // IndexedDB every SAVE_FLUSH_MS at most — closing right away can cut that
-  // off mid-write. Wait slightly longer than that interval before we
-  // force-release WebGL/audio and unload the frame. If the user opens
-  // another game before this fires, openPlayer() runs it immediately instead.
-  const timer = setTimeout(() => { pendingCleanup = null; runCleanup(); }, SAVE_FLUSH_MS + 500);
-  pendingCleanup = { run: runCleanup, timer };
+  // EmulatorJS (via EJS_fixedSaveInterval) flushes the game's save at most
+  // every SAVE_FLUSH_MS — give that a moment before navigating away, since a
+  // real page navigation is a hard cut of whatever's still in flight.
+  $("#playModalStatus").hidden = false;
+  $("#playModalStatus").textContent = "Salvando o jogo antes de fechar…";
+  setTimeout(() => { location.href = "index.html"; }, SAVE_FLUSH_MS + 500);
 }
 
 /* ---------- misc UI ---------- */
@@ -657,6 +641,8 @@ async function init() {
   romEntries.forEach(([k, v]) => romIndex.set(k, v));
   const biosEntries = await idbGetAll("biosMeta");
   biosEntries.forEach(([k, v]) => { biosInfo[k] = v; });
+
+  startPlayerFromQuery();
 
   // Render the catalog before wiring up any optional/secondary controls, so a
   // missing element (e.g. a stale cached HTML during a deploy) never blocks
