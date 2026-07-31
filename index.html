@@ -77,9 +77,11 @@
   </section>
 
   <section class="import-bar">
-    <button class="btn secondary" id="importFolderBtn">📁 Importar várias ROMs</button>
-    <span class="import-bar-hint">Selecione de uma vez todos os arquivos .gb/.gbc/.gba/.nds da sua pasta de ROMs e o app tenta casar cada um com o jogo certo pelo nome do arquivo.</span>
-    <input type="file" id="folderPicker" multiple hidden>
+    <button class="btn secondary" id="importFolderBtn">📁 Importar pasta (com subpastas)</button>
+    <button class="btn secondary" id="importFilesBtn">🗂️ Importar arquivos selecionados</button>
+    <span class="import-bar-hint">Escolhe uma pasta (vasculha as subpastas também) ou seleciona vários arquivos .gb/.gbc/.gba/.nds de uma vez — o app tenta casar cada um com o jogo certo pelo nome do arquivo.</span>
+    <input type="file" id="folderPicker" webkitdirectory multiple hidden>
+    <input type="file" id="filesPicker" multiple hidden>
   </section>
 
   <nav class="tabs">

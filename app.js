@@ -34,13 +34,26 @@ function isLikelyMatch(filename, title) {
   if (!t || !f) return false;
   return f.includes(t) || t.includes(f);
 }
+function matchScore(filename, title) {
+  const f = squash(filename), t = squash(title);
+  if (!f || !t) return 0;
+  if (f === t) return 3;            // exact match
+  if (f.includes(t)) return 2;      // filename contains the full title (typical ROM naming, e.g. tags around it)
+  if (t.includes(f)) return 1;      // filename is only a prefix of a longer title — weaker, prone to e.g. "Crystal" vs "Crystal Clear"
+  return 0;
+}
 function matchFileToGames(filename) {
   const platforms = ROM_EXT_PLATFORMS[extOf(filename)];
   if (!platforms) return [];
   return games
-    .map((g, i) => ({ g, i }))
-    .filter(({ g }) => platforms.includes(g.platform))
-    .filter(({ g }) => isLikelyMatch(filename, g.title));
+    .map((g, i) => ({ g, i, score: matchScore(filename, g.title) }))
+    .filter(({ g, score }) => platforms.includes(g.platform) && score > 0);
+}
+function bestMatchIndex(matches) {
+  if (!matches.length) return null;
+  const maxScore = Math.max(...matches.map(m => m.score));
+  const top = matches.filter(m => m.score === maxScore);
+  return top.length === 1 ? top[0].i : null;
 }
 
 let state = JSON.parse(localStorage.getItem(KEY) || "{}");
@@ -568,10 +581,7 @@ function handleFolderImport(fileList) {
     toast("Nenhum arquivo .gb/.gbc/.sgb/.gba/.nds encontrado nessa pasta.");
     return;
   }
-  importCandidates = files.map(file => {
-    const matches = matchFileToGames(file.name);
-    return { file, matchIndex: matches.length === 1 ? matches[0].i : null };
-  });
+  importCandidates = files.map(file => ({ file, matchIndex: bestMatchIndex(matchFileToGames(file.name)) }));
   renderImportReview();
   $("#importModal").hidden = false;
 }
@@ -683,15 +693,15 @@ async function init() {
   on("#fullscreenBtn", "click", toggleFullscreen);
   on("#playModal", "click", e => { if (e.target.id === "playModal") closePlayer(); });
 
-  on("#importFolderBtn", "click", () => {
+  const openPicker = (selector) => {
     try {
-      $("#folderPicker").click();
+      $(selector).click();
     } catch (e) {
       console.error("Falha ao abrir o seletor de arquivos:", e);
       toast("Não foi possível abrir o seletor de arquivos: " + e.message);
     }
-  });
-  on("#folderPicker", "change", e => {
+  };
+  const onPickerChange = (e) => {
     try {
       handleFolderImport(e.target.files);
     } catch (e) {
@@ -699,7 +709,11 @@ async function init() {
       toast("Erro ao importar: " + e.message);
     }
     e.target.value = "";
-  });
+  };
+  on("#importFolderBtn", "click", () => openPicker("#folderPicker"));
+  on("#folderPicker", "change", onPickerChange);
+  on("#importFilesBtn", "click", () => openPicker("#filesPicker"));
+  on("#filesPicker", "change", onPickerChange);
   on("#confirmImportBtn", "click", confirmImport);
   on("#closeImportModal", "click", () => { importCandidates = []; $("#importModal").hidden = true; });
   on("#importModal", "click", e => { if (e.target.id === "importModal") { importCandidates = []; $("#importModal").hidden = true; } });
