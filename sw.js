@@ -27,6 +27,11 @@ self.addEventListener("activate", (event) => {
           .map((key) => caches.delete(key))
       )
     ).then(() => self.clients.claim())
+      // A new SW version just took over. Tabs that were already open won't
+      // pick up the new app.js/index.html by themselves until they navigate
+      // again — force that instead of relying on the user reloading twice.
+      .then(() => self.clients.matchAll({ type: "window" }))
+      .then((clients) => clients.forEach((client) => client.postMessage({ source: "pkm-sw", type: "activated" })))
   );
 });
 
