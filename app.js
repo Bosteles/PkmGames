@@ -429,7 +429,13 @@ async function openPlayer(i) {
         window.EJS_gameName = ${JSON.stringify(g.title)};
         window.EJS_gameID = ${JSON.stringify(i)};
         window.EJS_fixedSaveInterval = ${SAVE_FLUSH_MS};
-        window.EJS_startOnLoaded = true;
+        // Deliberately NOT setting EJS_startOnLoaded: it has known issues
+        // (freezes on the loading screen in some builds) and, more
+        // importantly, it can race ahead of EmulatorJS's own async lookup
+        // of a previous save for this game — starting the core before that
+        // finishes boots with an empty save even though one exists. Letting
+        // EmulatorJS show its normal "tap to start" UI keeps that lookup
+        // safely ahead of the game actually running.
 
         function notifyParent(status, message) {
           parent.postMessage({ source: "pkm-emu", status: status, message: message || "" }, "*");
@@ -453,6 +459,12 @@ async function openPlayer(i) {
         loaderScript.onerror = function () {
           notifyParent("error", "Não foi possível carregar os arquivos do emulador (CDN bloqueada ou sem internet).");
         };
+        // Once the library itself has loaded it takes over rendering (its
+        // own "tap to start" screen, load progress, etc.) — get our own
+        // overlay out of the way so that UI is actually reachable, instead
+        // of waiting for EJS_onGameStart (which only fires after the user
+        // taps start).
+        loaderScript.onload = function () { clearOverlay(); notifyParent("loaded"); };
         document.body.appendChild(loaderScript);
       <\/script>
     </body></html>`;
@@ -473,7 +485,7 @@ async function openPlayer(i) {
 window.addEventListener("message", (e) => {
   if (!e.data || e.data.source !== "pkm-emu") return;
   const statusEl = $("#playModalStatus");
-  if (e.data.status === "started") {
+  if (e.data.status === "started" || e.data.status === "loaded") {
     statusEl.hidden = true;
   } else if (e.data.status === "error" || e.data.status === "timeout") {
     statusEl.hidden = false;

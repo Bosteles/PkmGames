@@ -1,5 +1,5 @@
-const SHELL_CACHE = "pkm-collection-shell-v2";
-const RUNTIME_CACHE = "pkm-collection-runtime-v2";
+const SHELL_CACHE = "pkm-collection-shell-v3";
+const RUNTIME_CACHE = "pkm-collection-runtime-v3";
 
 const SHELL_FILES = [
   "./",
@@ -42,8 +42,13 @@ self.addEventListener("fetch", (event) => {
     // visible immediately, falling back to cache only when offline. A
     // cache-first/stale-while-revalidate strategy here previously caused
     // index.html and app.js to drift out of sync across deploys.
+    //
+    // `fetch(req)` alone can still be satisfied from the browser's plain
+    // HTTP cache (below the Service Worker) if GitHub Pages' Cache-Control
+    // headers make it look fresh — bypass that layer explicitly so a
+    // deploy is never masked by ordinary HTTP caching.
     event.respondWith(
-      fetch(req).then((res) => {
+      fetch(req, { cache: "no-store" }).then((res) => {
         caches.open(SHELL_CACHE).then((cache) => cache.put(req, res.clone()));
         return res;
       }).catch(() => caches.match(req))
