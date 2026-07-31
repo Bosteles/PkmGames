@@ -445,7 +445,24 @@ function toggleFullscreen() {
 
 function closePlayer() {
   $("#playModal").hidden = true;
-  $("#playModalBody").innerHTML = "";
+
+  const iframe = $("#emuFrame");
+  if (iframe) {
+    try {
+      const canvases = iframe.contentDocument ? iframe.contentDocument.querySelectorAll("canvas") : [];
+      canvases.forEach(c => {
+        const gl = c.getContext("webgl2") || c.getContext("webgl") || c.getContext("experimental-webgl");
+        const ext = gl && gl.getExtension("WEBGL_lose_context");
+        if (ext) ext.loseContext();
+      });
+    } catch (e) { /* iframe already gone or inaccessible, nothing to clean up */ }
+    // Force a hard unload of the emulator's page (frees WebGL/audio resources)
+    // before detaching the node — just removing it can leave them dangling
+    // until garbage collection, breaking the next "Jogar" attempt.
+    iframe.src = "about:blank";
+  }
+  setTimeout(() => { $("#playModalBody").innerHTML = ""; }, 60);
+
   if (currentPlay) {
     URL.revokeObjectURL(currentPlay.romUrl);
     if (currentPlay.biosUrl) URL.revokeObjectURL(currentPlay.biosUrl);
