@@ -79,9 +79,11 @@
   <section class="import-bar">
     <button class="btn secondary" id="importFolderBtn">📁 Importar pasta (com subpastas)</button>
     <button class="btn secondary" id="importFilesBtn">🗂️ Importar arquivos selecionados</button>
-    <span class="import-bar-hint">Escolhe uma pasta (vasculha as subpastas também) ou seleciona vários arquivos .gb/.gbc/.gba/.nds de uma vez — o app tenta casar cada um com o jogo certo pelo nome do arquivo.</span>
+    <span class="import-bar-hint">Escolhe uma pasta (vasculha as subpastas também) ou seleciona vários arquivos .gb/.gbc/.gba/.nds de uma vez — o app tenta casar cada um com o jogo certo pelo nome do arquivo. "Importar capas" faz o mesmo com imagens, para todos os jogos do catálogo.</span>
+    <button class="btn secondary" id="importCoversBtn">🖼️ Importar capas</button>
     <input type="file" id="folderPicker" webkitdirectory multiple hidden>
     <input type="file" id="filesPicker" multiple hidden>
+    <input type="file" id="coversPicker" accept="image/*" multiple hidden>
   </section>
 
   <nav class="tabs">
