@@ -1,6 +1,6 @@
 const games = [{"title":"Pokémon Red","platform":"GB","generation":"1ª geração","year":1996,"type":"Série principal","region":"Kanto","note":"Versão original da primeira geração.","rating":8.7},{"title":"Pokémon Blue","platform":"GB","generation":"1ª geração","year":1996,"type":"Série principal","region":"Kanto","note":"Versão complementar da primeira geração.","rating":8.7},{"title":"Pokémon Yellow","platform":"GB","generation":"1ª geração","year":1998,"type":"Série principal","region":"Kanto","note":"Edição especial inspirada no anime.","rating":8.8},{"title":"Pokémon Gold","platform":"GBC","generation":"2ª geração","year":1999,"type":"Série principal","region":"Johto","note":"Introduz Johto, ciclo de dia e noite e criação.","rating":9.2},{"title":"Pokémon Silver","platform":"GBC","generation":"2ª geração","year":1999,"type":"Série principal","region":"Johto","note":"Versão complementar de Gold.","rating":9.2},{"title":"Pokémon Crystal","platform":"GBC","generation":"2ª geração","year":2000,"type":"Série principal","region":"Johto","note":"Edição aprimorada de Gold e Silver.","rating":9.3},{"title":"Pokémon Ruby","platform":"GBA","generation":"3ª geração","year":2002,"type":"Série principal","region":"Hoenn","note":"Apresenta Hoenn, habilidades e batalhas em dupla.","rating":8.8},{"title":"Pokémon Sapphire","platform":"GBA","generation":"3ª geração","year":2002,"type":"Série principal","region":"Hoenn","note":"Versão complementar de Ruby.","rating":8.8},{"title":"Pokémon Emerald","platform":"GBA","generation":"3ª geração","year":2004,"type":"Série principal","region":"Hoenn","note":"Edição aprimorada com Battle Frontier.","rating":9.4},{"title":"Pokémon FireRed","platform":"GBA","generation":"3ª geração","year":2004,"type":"Remake","region":"Kanto","note":"Remake moderno de Red.","rating":9.1},{"title":"Pokémon LeafGreen","platform":"GBA","generation":"3ª geração","year":2004,"type":"Remake","region":"Kanto","note":"Remake moderno de Green/Blue.","rating":9.1},{"title":"Pokémon Diamond","platform":"NDS","generation":"4ª geração","year":2006,"type":"Série principal","region":"Sinnoh","note":"Primeira geração principal no Nintendo DS.","rating":8.5},{"title":"Pokémon Pearl","platform":"NDS","generation":"4ª geração","year":2006,"type":"Série principal","region":"Sinnoh","note":"Versão complementar de Diamond.","rating":8.5},{"title":"Pokémon Platinum","platform":"NDS","generation":"4ª geração","year":2008,"type":"Série principal","region":"Sinnoh","note":"Edição aprimorada de Diamond e Pearl.","rating":9.2},{"title":"Pokémon HeartGold","platform":"NDS","generation":"4ª geração","year":2009,"type":"Remake","region":"Johto","note":"Remake de Gold com conteúdo expandido.","rating":9.6},{"title":"Pokémon SoulSilver","platform":"NDS","generation":"4ª geração","year":2009,"type":"Remake","region":"Johto","note":"Remake de Silver com conteúdo expandido.","rating":9.6},{"title":"Pokémon Black","platform":"NDS","generation":"5ª geração","year":2010,"type":"Série principal","region":"Unova","note":"Nova Pokédex regional e história mais elaborada.","rating":9.0},{"title":"Pokémon White","platform":"NDS","generation":"5ª geração","year":2010,"type":"Série principal","region":"Unova","note":"Versão complementar de Black.","rating":9.0},{"title":"Pokémon Black 2","platform":"NDS","generation":"5ª geração","year":2012,"type":"Sequência","region":"Unova","note":"Sequência direta ambientada dois anos depois.","rating":9.4},{"title":"Pokémon White 2","platform":"NDS","generation":"5ª geração","year":2012,"type":"Sequência","region":"Unova","note":"Versão complementar de Black 2.","rating":9.4},{"title":"Pokémon X","platform":"3DS","generation":"6ª geração","year":2013,"type":"Série principal","region":"Kalos","note":"Primeira aventura principal totalmente em 3D.","rating":8.5},{"title":"Pokémon Y","platform":"3DS","generation":"6ª geração","year":2013,"type":"Série principal","region":"Kalos","note":"Versão complementar de X.","rating":8.5},{"title":"Pokémon Omega Ruby","platform":"3DS","generation":"6ª geração","year":2014,"type":"Remake","region":"Hoenn","note":"Remake de Ruby com Mega Evolução.","rating":8.8},{"title":"Pokémon Alpha Sapphire","platform":"3DS","generation":"6ª geração","year":2014,"type":"Remake","region":"Hoenn","note":"Remake de Sapphire com Mega Evolução.","rating":8.8},{"title":"Pokémon Sun","platform":"3DS","generation":"7ª geração","year":2016,"type":"Série principal","region":"Alola","note":"Estrutura de ilhas e provas insulares.","rating":8.4},{"title":"Pokémon Moon","platform":"3DS","generation":"7ª geração","year":2016,"type":"Série principal","region":"Alola","note":"Versão complementar de Sun.","rating":8.4},{"title":"Pokémon Ultra Sun","platform":"3DS","generation":"7ª geração","year":2017,"type":"Série principal","region":"Alola","note":"Versão expandida de Sun.","rating":8.6},{"title":"Pokémon Ultra Moon","platform":"3DS","generation":"7ª geração","year":2017,"type":"Série principal","region":"Alola","note":"Versão expandida de Moon.","rating":8.6},{"title":"Pokémon Let's Go, Pikachu!","platform":"Switch","generation":"7ª geração","year":2018,"type":"Remake","region":"Kanto","note":"Releitura acessível de Pokémon Yellow.","rating":8.1},{"title":"Pokémon Let's Go, Eevee!","platform":"Switch","generation":"7ª geração","year":2018,"type":"Remake","region":"Kanto","note":"Versão complementar com Eevee.","rating":8.1},{"title":"Pokémon Sword","platform":"Switch","generation":"8ª geração","year":2019,"type":"Série principal","region":"Galar","note":"Introduz a Área Selvagem e Dynamax.","rating":8.0},{"title":"Pokémon Shield","platform":"Switch","generation":"8ª geração","year":2019,"type":"Série principal","region":"Galar","note":"Versão complementar de Sword.","rating":8.0},{"title":"Pokémon Brilliant Diamond","platform":"Switch","generation":"8ª geração","year":2021,"type":"Remake","region":"Sinnoh","note":"Remake fiel de Diamond.","rating":7.2},{"title":"Pokémon Shining Pearl","platform":"Switch","generation":"8ª geração","year":2021,"type":"Remake","region":"Sinnoh","note":"Remake fiel de Pearl.","rating":7.2},{"title":"Pokémon Legends: Arceus","platform":"Switch","generation":"8ª geração","year":2022,"type":"Ação/RPG","region":"Hisui","note":"Exploração aberta no passado de Sinnoh.","rating":9.1},{"title":"Pokémon Scarlet","platform":"Switch","generation":"9ª geração","year":2022,"type":"Série principal","region":"Paldea","note":"Estrutura de mundo aberto.","rating":7.6},{"title":"Pokémon Violet","platform":"Switch","generation":"9ª geração","year":2022,"type":"Série principal","region":"Paldea","note":"Versão complementar de Scarlet.","rating":7.6},{"title":"Pokémon Pinball","platform":"GBC","generation":"Clássicos","year":1999,"type":"Spin-off","region":"—","note":"Pinball temático com captura de Pokémon.","rating":8.0},{"title":"Pokémon Trading Card Game","platform":"GBC","generation":"Clássicos","year":1998,"type":"Spin-off","region":"—","note":"RPG baseado no jogo de cartas.","rating":8.4},{"title":"Pokémon Mystery Dungeon: Red Rescue Team","platform":"GBA","generation":"Spin-offs","year":2005,"type":"Mystery Dungeon","region":"—","note":"RPG de masmorras com Pokémon como protagonistas.","rating":8.1},{"title":"Pokémon Mystery Dungeon: Explorers of Sky","platform":"NDS","generation":"Spin-offs","year":2009,"type":"Mystery Dungeon","region":"—","note":"Uma das histórias mais elogiadas da série.","rating":9.3},{"title":"Pokémon Ranger","platform":"NDS","generation":"Spin-offs","year":2006,"type":"Ranger","region":"Fiore","note":"Captura por gestos usando a tela de toque.","rating":7.8},{"title":"Pokémon Conquest","platform":"NDS","generation":"Spin-offs","year":2012,"type":"Estratégia","region":"Ransei","note":"Estratégia tática em parceria com guerreiros.","rating":8.8},{"title":"New Pokémon Snap","platform":"Switch","generation":"Spin-offs","year":2021,"type":"Fotografia","region":"Lental","note":"Exploração fotográfica em trilhos.","rating":8.5},{"title":"Pokémon Unbound","platform":"GBA","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Borrius","note":"Campanha extensa, dificuldade configurável e muitos recursos modernos.","rating":9.6},{"title":"Pokémon Radical Red","platform":"GBA","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Kanto","note":"Foco em desafio, batalhas competitivas e qualidade de vida.","rating":9.2},{"title":"Pokémon Gaia","platform":"GBA","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Orbtus","note":"Aventura tradicional em uma região original.","rating":8.8},{"title":"Pokémon Glazed","platform":"GBA","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Tunod","note":"Várias regiões e longa duração.","rating":8.6},{"title":"Pokémon FireRed: Rocket Edition","platform":"GBA","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Kanto","note":"Campanha pela perspectiva de um recruta da Equipe Rocket.","rating":9.3},{"title":"Pokémon Inclement Emerald","platform":"GBA","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Hoenn","note":"Reinterpretação difícil e modernizada de Emerald.","rating":9.0},{"title":"Pokémon Emerald Rogue","platform":"GBA","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"—","note":"Pokémon em formato roguelike, com campanhas curtas e repetíveis.","rating":9.4},{"title":"Pokémon Prism","platform":"GBC","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Nalgo","note":"Hack ambicioso de Crystal com região própria.","rating":8.9},{"title":"Pokémon Crystal Clear","platform":"GBC","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Johto/Kanto","note":"Experiência de mundo aberto baseada em Crystal.","rating":9.1},{"title":"Pokémon Polished Crystal","platform":"GBC","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Johto","note":"Versão refinada e expandida de Crystal.","rating":9.0},{"title":"Pokémon Infinite Fusion","platform":"PC/Android","generation":"Projeto de fã","year":"—","type":"Fan game","region":"Kanto","note":"Permite fundir espécies e criar combinações únicas.","rating":9.2},{"title":"Pokémon Reborn","platform":"PC","generation":"Projeto de fã","year":"—","type":"Fan game","region":"Reborn","note":"História extensa, dificuldade alta e cenários urbanos.","rating":8.8},{"title":"Pokémon Rejuvenation","platform":"PC","generation":"Projeto de fã","year":"—","type":"Fan game","region":"Aevium","note":"Grande campanha narrativa inspirada em Reborn.","rating":8.7},{"title":"Pokémon Uranium","platform":"PC","generation":"Projeto de fã","year":"—","type":"Fan game","region":"Tandor","note":"Região própria e criaturas originais.","rating":8.6},{"title":"Pokémon Insurgence","platform":"PC","generation":"Projeto de fã","year":"—","type":"Fan game","region":"Torren","note":"Campanha longa, formas Delta e tom mais sombrio.","rating":8.9}];
 
-const BUILD_ID = "build-16-savestate-guidance";
+const BUILD_ID = "build-17-own-sram-persistence";
 const KEY = "pokemon-collection-andre-v1";
 const SETTINGS_KEY = "pokemon-collection-andre-emu-settings-v1";
 const NOTES_KEY = "pokemon-collection-andre-notes-v1";
@@ -80,13 +80,16 @@ let dbPromise = null;
 function openDB() {
   if (dbPromise) return dbPromise;
   dbPromise = new Promise((resolve, reject) => {
-    const req = indexedDB.open(DB_NAME, 1);
+    const req = indexedDB.open(DB_NAME, 2);
     req.onupgradeneeded = () => {
       const db = req.result;
       if (!db.objectStoreNames.contains("roms")) db.createObjectStore("roms");
       if (!db.objectStoreNames.contains("romsMeta")) db.createObjectStore("romsMeta");
       if (!db.objectStoreNames.contains("bios")) db.createObjectStore("bios");
       if (!db.objectStoreNames.contains("biosMeta")) db.createObjectStore("biosMeta");
+      // v2: in-game (SRAM) saves we persist ourselves, because EmulatorJS's
+      // own /data/saves IndexedDB mirror gets wiped on the next session.
+      if (!db.objectStoreNames.contains("gameSaves")) db.createObjectStore("gameSaves");
     };
     req.onsuccess = () => resolve(req.result);
     req.onerror = () => reject(req.error);
@@ -467,12 +470,111 @@ async function startPlayerFromQuery() {
           var o = document.getElementById("loadingOverlay");
           if (o) o.remove();
         }
-        window.EJS_onGameStart = function () { clearOverlay(); notifyParent("started"); };
-        // Best-effort: these callback names aren't confirmed against the
-        // actual library source (no network access to verify), so treat any
-        // toast from them as a bonus signal, not proof either way.
-        window.EJS_onSaveSave = function () { notifyParent("save-written", "Save gravado pelo emulador."); };
-        window.EJS_onLoadSave = function () { notifyParent("save-loaded", "Save carregado pelo emulador."); };
+        // ---- Our own SRAM (in-game save) persistence -------------------
+        // EmulatorJS mirrors /data/saves into IndexedDB itself, but that
+        // mirror is wiped at the start of the next session (the file we
+        // verified on disk was gone on the following load). So we read the
+        // .srm straight out of the emulator's virtual filesystem and keep a
+        // copy in the app's own IndexedDB, then write it back on startup.
+        var SAVE_DIR = "/data/saves";
+        var restoreAttempted = false;
+
+        function getFS() {
+          try { return window.EJS_emulator && window.EJS_emulator.gameManager && window.EJS_emulator.gameManager.FS; }
+          catch (e) { return null; }
+        }
+        function walkFiles(FS, dir, out) {
+          var entries;
+          try { entries = FS.readdir(dir); } catch (e) { return out; }
+          entries.forEach(function (name) {
+            if (name === "." || name === "..") return;
+            var p = dir + "/" + name;
+            var st;
+            try { st = FS.stat(p); } catch (e) { return; }
+            if (FS.isDir(st.mode)) walkFiles(FS, p, out);
+            else out.push(p);
+          });
+          return out;
+        }
+        function collectSaveFiles() {
+          var FS = getFS();
+          if (!FS) return null;
+          var paths = walkFiles(FS, SAVE_DIR, []);
+          var files = [];
+          paths.forEach(function (p) {
+            try {
+              var data = FS.readFile(p, { encoding: "binary" });
+              if (data && data.length) files.push({ path: p, data: data });
+            } catch (e) { /* unreadable entry, skip it */ }
+          });
+          return files;
+        }
+        function writeSaveFiles(files) {
+          var FS = getFS();
+          if (!FS || !files || !files.length) return 0;
+          var written = 0;
+          files.forEach(function (f) {
+            try {
+              var dir = f.path.slice(0, f.path.lastIndexOf("/"));
+              if (FS.mkdirTree) FS.mkdirTree(dir);
+              FS.writeFile(f.path, new Uint8Array(f.data));
+              written++;
+            } catch (e) { /* path not writable in this build, skip */ }
+          });
+          return written;
+        }
+        function pushSaveToParent(reason) {
+          var files = collectSaveFiles();
+          if (!files || !files.length) return false;
+          parent.postMessage({ source: "pkm-emu", status: "sram-data", reason: reason, files: files }, "*");
+          return true;
+        }
+
+        var autoSaveTimer = null;
+        function startAutoSave() {
+          // Guarded: EJS_onGameStart fires again after the restore restart,
+          // and we don't want a second interval stacking on the first.
+          if (autoSaveTimer) return;
+          autoSaveTimer = setInterval(function () { pushSaveToParent("interval"); }, 10000);
+        }
+
+        window.EJS_onGameStart = function () {
+          clearOverlay();
+          notifyParent("started");
+          if (!restoreAttempted) {
+            restoreAttempted = true;
+            // Ask the parent for a previously stored save for this game.
+            // Autosave only starts once that round-trip finishes, so a blank
+            // freshly-booted .srm can never overwrite a good stored save.
+            setTimeout(function () { notifyParent("sram-request"); }, 400);
+          } else {
+            startAutoSave();
+          }
+        };
+
+        window.addEventListener("message", function (e) {
+          if (!e.data) return;
+          if (e.data.type === "pkm-sram-restore") {
+            var written = writeSaveFiles(e.data.files);
+            if (written > 0) {
+              // The core reads the .srm at boot, so it has to restart for the
+              // restored save to be picked up ("CONTINUE" on the title screen).
+              try {
+                window.EJS_emulator.gameManager.restart();
+                notifyParent("sram-restored", "Save do jogo restaurado.");
+              } catch (err) {
+                notifyParent("sram-error", "Save restaurado, mas não consegui reiniciar o núcleo: " + err.message);
+              }
+            }
+            startAutoSave();
+          } else if (e.data.type === "pkm-sram-collect") {
+            if (!pushSaveToParent("final")) {
+              parent.postMessage({ source: "pkm-emu", status: "sram-data", reason: "final", files: [] }, "*");
+            }
+          }
+        });
+
+        window.addEventListener("pagehide", function () { pushSaveToParent("pagehide"); });
 
         // Replace EmulatorJS's built-in on-screen notification (the blocky
         // red "SAVE STATE ARMAZENADO..." text) with our own nicer-looking
@@ -577,6 +679,7 @@ async function startPlayerFromQuery() {
       <\/script>
     </body></html>`;
 
+  playingIndex = i;
   $("#playModalTitle").textContent = `${icons[g.platform] || "🎮"} ${g.title}`;
   $("#playModalStatus").hidden = true;
   const body = $("#playModalBody");
@@ -590,7 +693,12 @@ async function startPlayerFromQuery() {
   $("#playModal").hidden = false;
 }
 
-window.addEventListener("message", (e) => {
+// Index of the game currently open in the player, so incoming SRAM data
+// from the iframe can be filed under the right game.
+let playingIndex = null;
+let finalSaveResolve = null;
+
+window.addEventListener("message", async (e) => {
   if (!e.data || e.data.source !== "pkm-emu") return;
   const statusEl = $("#playModalStatus");
   if (e.data.status === "started" || e.data.status === "loaded") {
@@ -603,6 +711,27 @@ window.addEventListener("message", (e) => {
   } else if (e.data.status === "storage-info") {
     statusEl.hidden = false;
     statusEl.textContent = "🗄️ IndexedDB neste frame: " + e.data.message;
+  } else if (e.data.status === "sram-request") {
+    // The emulator just booted and wants any save we kept for this game.
+    // Always reply — even with nothing — so the iframe knows the restore
+    // round-trip is done and can safely start its autosave loop.
+    let stored = null;
+    if (playingIndex !== null) {
+      try { stored = await idbGet("gameSaves", playingIndex); } catch (err) { console.error("Falha ao ler save guardado:", err); }
+    }
+    const iframe = $("#emuFrame");
+    iframe?.contentWindow?.postMessage({ type: "pkm-sram-restore", files: stored || [] }, "*");
+  } else if (e.data.status === "sram-data") {
+    if (playingIndex !== null && e.data.files && e.data.files.length) {
+      await idbPut("gameSaves", playingIndex, e.data.files);
+      if (e.data.reason === "final") toast("💾 Progresso do jogo salvo.");
+    }
+    if (e.data.reason === "final" && finalSaveResolve) { finalSaveResolve(); finalSaveResolve = null; }
+  } else if (e.data.status === "sram-restored") {
+    toast("💾 " + e.data.message);
+  } else if (e.data.status === "sram-error") {
+    statusEl.hidden = false;
+    statusEl.textContent = "⚠️ " + e.data.message;
   }
 });
 
@@ -622,7 +751,17 @@ function toggleFullscreen() {
   }
 }
 
-function closePlayer() {
+async function closePlayer() {
+  // Grab the in-game save one last time before navigating away. This is a
+  // quick FS read + IndexedDB write (not the old 5s wait), and it's capped
+  // so a non-responding emulator can never block closing.
+  const iframe = $("#emuFrame");
+  if (iframe && iframe.contentWindow && playingIndex !== null) {
+    const done = new Promise(resolve => { finalSaveResolve = resolve; });
+    iframe.contentWindow.postMessage({ type: "pkm-sram-collect" }, "*");
+    await Promise.race([done, new Promise(r => setTimeout(r, 1500))]);
+    finalSaveResolve = null;
+  }
   location.href = "index.html";
 }
 

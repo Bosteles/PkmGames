@@ -29,16 +29,15 @@ Abrindo o site pelo Chrome/Edge no Android ou desktop, aparece o botão **"Insta
 - `app.js` — catálogo, progresso, ROMs (IndexedDB), configuração de emuladores e player (EmulatorJS via iframe isolado)
 - `manifest.webmanifest`, `sw.js`, `icons/` — suporte a PWA (instalação e uso offline)
 
-## Como salvar o progresso (importante)
+## Como salvar o progresso
 
-O save automático "dentro do jogo" (o que mostra "CONTINUE" na tela título) tem um bug conhecido no EmulatorJS: o arquivo chega a ser gravado, mas o banco de armazenamento é reiniciado a cada nova sessão, então esse save some ao reabrir. Isso é uma limitação da biblioteca, não do app.
+**Save dentro do jogo (o "CONTINUE" da tela título)** funciona normalmente: salve pelo menu do próprio jogo e, ao reabrir, o progresso estará lá.
 
-**Use "Save State" pelo menu do emulador para salvar de verdade:**
-1. Dentro do jogo, toque no ícone de menu (☰) no canto do vídeo.
-2. Escolha **"Armazenar Save State"** — isso confirmado que persiste corretamente entre sessões (fica salvo no navegador, sem baixar arquivo).
-3. Para continuar depois, abra o mesmo jogo e escolha **"Carregar Save State"** no mesmo menu.
+Nos bastidores, o app não depende da persistência do EmulatorJS para isso. A biblioteca espelha `/data/saves` no IndexedDB, mas esse espelho é apagado no começo da sessão seguinte (o `.srm` era gravado e sumia ao reabrir). Então o app lê o arquivo `.srm` direto do sistema de arquivos virtual do emulador e guarda uma cópia no próprio banco do app — periodicamente enquanto você joga, ao fechar o player e ao sair da página. Na abertura seguinte, ele grava o arquivo de volta e reinicia o núcleo para que o jogo leia o save.
 
-Em **Ajustes → Save States** dentro do emulador dá pra configurar o slot e o intervalo de gravação automática desse Save State.
+**Save State** (menu ☰ do emulador → "Armazenar/Carregar Save State") continua disponível como alternativa, salvando no navegador sem baixar arquivo. Em **Ajustes → Save States** dá pra configurar slot e intervalo.
+
+Tudo isso fica apenas neste navegador/aparelho.
 
 ## Backup
 
