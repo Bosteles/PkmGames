@@ -1,5 +1,23 @@
-const SHELL_CACHE = "pkm-collection-shell-v3";
-const RUNTIME_CACHE = "pkm-collection-runtime-v3";
+const SHELL_CACHE = "pkm-collection-shell-v4";
+const RUNTIME_CACHE = "pkm-collection-runtime-v4";
+
+// Multithreaded emulator cores need SharedArrayBuffer, which the browser
+// only exposes on cross-origin-isolated pages — and that needs COOP/COEP
+// response headers. GitHub Pages can't set headers, but a Service Worker
+// can add them to the responses it serves. The flag rides on the worker's
+// own registration URL (sw.js?coi=1) so it survives worker restarts, and
+// so toggling it off is just a re-registration.
+// COEP "credentialless" is used rather than "require-corp" because the
+// emulator CDN doesn't send Cross-Origin-Resource-Policy.
+const COI_ENABLED = new URL(self.location.href).searchParams.get("coi") === "1";
+
+function withIsolationHeaders(res) {
+  if (!COI_ENABLED || !res || !res.body) return res;
+  const headers = new Headers(res.headers);
+  headers.set("Cross-Origin-Opener-Policy", "same-origin");
+  headers.set("Cross-Origin-Embedder-Policy", "credentialless");
+  return new Response(res.body, { status: res.status, statusText: res.statusText, headers });
+}
 
 const SHELL_FILES = [
   "./",
@@ -55,8 +73,8 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(
       fetch(req, { cache: "no-store" }).then((res) => {
         caches.open(SHELL_CACHE).then((cache) => cache.put(req, res.clone()));
-        return res;
-      }).catch(() => caches.match(req))
+        return withIsolationHeaders(res);
+      }).catch(() => caches.match(req).then(withIsolationHeaders))
     );
     return;
   }
