@@ -29,11 +29,16 @@ Abrindo o site pelo Chrome/Edge no Android ou desktop, aparece o botão **"Insta
 - `app.js` — catálogo, progresso, ROMs (IndexedDB), configuração de emuladores e player (EmulatorJS via iframe isolado)
 - `manifest.webmanifest`, `sw.js`, `icons/` — suporte a PWA (instalação e uso offline)
 
-## Save states
+## Como salvar o progresso (importante)
 
-O progresso dentro do jogo (save/save state) é salvo automaticamente pelo próprio emulador no armazenamento do navegador, associado àquele jogo específico — ao reabrir o mesmo jogo depois, ele carrega sozinho de onde parou, sem precisar baixar/enviar arquivo nenhum. Isso fica só nesse navegador/aparelho; use o menu do emulador (dentro do player) se quiser baixar um save avulso para levar a outro dispositivo.
+O save automático "dentro do jogo" (o que mostra "CONTINUE" na tela título) tem um bug conhecido no EmulatorJS: o arquivo chega a ser gravado, mas o banco de armazenamento é reiniciado a cada nova sessão, então esse save some ao reabrir. Isso é uma limitação da biblioteca, não do app.
 
-O emulador só grava esse save no armazenamento a cada poucos segundos (não a cada mudança), então ao fechar o jogo o app espera um pouco antes de liberar os recursos, dando tempo dessa gravação terminar — feche o player normalmente pelo botão "Fechar" em vez de simplesmente recarregar a página logo depois de salvar.
+**Use "Save State" pelo menu do emulador para salvar de verdade:**
+1. Dentro do jogo, toque no ícone de menu (☰) no canto do vídeo.
+2. Escolha **"Armazenar Save State"** — isso confirmado que persiste corretamente entre sessões (fica salvo no navegador, sem baixar arquivo).
+3. Para continuar depois, abra o mesmo jogo e escolha **"Carregar Save State"** no mesmo menu.
+
+Em **Ajustes → Save States** dentro do emulador dá pra configurar o slot e o intervalo de gravação automática desse Save State.
 
 ## Backup
 
