@@ -11,12 +11,13 @@ Este app **não contém, não busca e não baixa** nenhuma ROM, BIOS ou firmware
 1. Abra `index.html` publicando a pasta em qualquer servidor estático (GitHub Pages, Netlify, Vercel, etc.) ou rodando localmente (`python3 -m http.server`, por exemplo).
 2. Na aba **Coleção**, cada jogo de GB/GBC/GBA/NDS tem um botão **"Adicionar ROM"** — selecione o arquivo do jogo. O card passa a mostrar "✅ ROM adicionada" e libera o botão **"▶ Jogar"**. Se o nome do arquivo não parecer mencionar o jogo, o app avisa antes de aceitar.
 3. Para importar várias ROMs de uma vez, use **"📁 Importar pasta (com subpastas)"** — que vasculha a pasta escolhida inteira, incluindo subpastas — ou **"🗂️ Importar arquivos selecionados"**, se preferir escolher arquivo por arquivo. O app tenta casar cada arquivo `.gb`/`.gbc`/`.gba`/`.nds` com o jogo certo pelo nome (ignorando tags como "(USA)", "[!]", acentos etc.). Uma tela de revisão mostra os pareamentos encontrados para você confirmar ou corrigir antes de importar — nada é adicionado sem essa confirmação.
-4. Use o filtro **"ROM: com ROM adicionada / sem ROM"** para ver rapidamente o que já foi importado.
-5. Na aba **Emuladores**, você pode:
+4. Para colocar **capas** nos jogos, toque na miniatura de qualquer card e escolha uma imagem, ou use **"🖼️ Importar capas"** para mandar várias de uma vez — o pareamento por nome é o mesmo usado nas ROMs, e vale para todos os jogos do catálogo (inclusive 3DS, Switch e PC). Sem capa, cada jogo mostra um marcador colorido próprio. Passe o mouse (ou toque) na capa para trocá-la ou removê-la pelo "×".
+5. Use o filtro **"ROM: com ROM adicionada / sem ROM"** para ver rapidamente o que já foi importado.
+6. Na aba **Emuladores**, você pode:
    - Ver quantos jogos de cada plataforma já têm ROM.
    - Enviar um **BIOS/firmware opcional** para GBA e NDS (melhora compatibilidade; sem ele o emulador tenta rodar mesmo assim).
    - Escolher o núcleo do NDS, ajustar o frameskip e ligar o modo rápido (veja "Desempenho no Nintendo DS" abaixo).
-6. 3DS, Switch e jogos de PC aparecem só como catálogo (status/nota + um campo livre "onde eu jogo isso"), sem emulador integrado — não existe emulação madura de 3DS/Switch em navegador, e os principais emuladores nativos desse tipo foram encerrados após ações judiciais da Nintendo em 2024.
+7. 3DS, Switch e jogos de PC aparecem só como catálogo (status/nota + um campo livre "onde eu jogo isso"), sem emulador integrado — não existe emulação madura de 3DS/Switch em navegador, e os principais emuladores nativos desse tipo foram encerrados após ações judiciais da Nintendo em 2024.
 
 ## Instalar como app (PWA)
 
@@ -63,7 +64,7 @@ O rodapé da página mostra a versão carregada (`Versão: build-...`), útil pa
 
 ## Backup
 
-O botão **"Exportar progresso"** gera um JSON com o progresso, a lista de ROMs adicionadas (apenas nomes, não os arquivos) e as configurações do emulador — útil para levar de um aparelho a outro.
+O botão **"Exportar progresso"** gera um JSON com o progresso, a lista de ROMs adicionadas (apenas nomes, não os arquivos) e as configurações do emulador — útil para levar de um aparelho a outro. As capas e os arquivos de ROM em si não entram nesse backup: como ficam no armazenamento do navegador, precisam ser importados de novo em outro aparelho.
 
 ## Limitações conhecidas
 
