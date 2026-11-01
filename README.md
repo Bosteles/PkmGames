@@ -9,10 +9,10 @@ Este app **não contém, não busca e não baixa** nenhuma ROM, BIOS ou firmware
 ## Como usar
 
 1. Abra `index.html` publicando a pasta em qualquer servidor estático (GitHub Pages, Netlify, Vercel, etc.) ou rodando localmente (`python3 -m http.server`, por exemplo).
-2. Na aba **Coleção**, cada jogo de GB/GBC/GBA/NDS tem um botão **"Adicionar ROM"** — selecione o arquivo do jogo. O card passa a mostrar "✅ ROM adicionada" e libera o botão **"▶ Jogar"**. Se o nome do arquivo não parecer mencionar o jogo, o app avisa antes de aceitar.
-3. Para importar várias ROMs de uma vez, use **"📁 Importar pasta (com subpastas)"** — que vasculha a pasta escolhida inteira, incluindo subpastas — ou **"🗂️ Importar arquivos selecionados"**, se preferir escolher arquivo por arquivo. O app tenta casar cada arquivo `.gb`/`.gbc`/`.gba`/`.nds` com o jogo certo pelo nome (ignorando tags como "(USA)", "[!]", acentos etc.). Uma tela de revisão mostra os pareamentos encontrados para você confirmar ou corrigir antes de importar — nada é adicionado sem essa confirmação.
-4. Para colocar **capas** nos jogos, toque na miniatura de qualquer card e escolha uma imagem, ou use **"🖼️ Importar capas"** para mandar várias de uma vez — o pareamento por nome é o mesmo usado nas ROMs, e vale para todos os jogos do catálogo (inclusive 3DS, Switch e PC). Sem capa, cada jogo mostra um marcador colorido próprio. Passe o mouse (ou toque) na capa para trocá-la ou removê-la pelo "×".
-5. Use o filtro **"ROM: com ROM adicionada / sem ROM"** para ver rapidamente o que já foi importado.
+2. Na aba **Coleção**, cada jogo de GB/GBC/GBA/NDS tem um botão **"Adicionar ROM"** — selecione o arquivo do jogo. O card passa a mostrar "✅ ROM adicionada" e libera o botão **"Jogar"**. Se o nome do arquivo não parecer mencionar o jogo, o app avisa antes de aceitar.
+3. Para importar várias ROMs de uma vez, use **"Importar pasta (com subpastas)"** — que vasculha a pasta escolhida inteira, incluindo subpastas — ou **"Importar arquivos selecionados"**, se preferir escolher arquivo por arquivo. O app tenta casar cada arquivo `.gb`/`.gbc`/`.gba`/`.nds` com o jogo certo pelo nome (ignorando tags como "(USA)", "[!]", acentos etc.). Uma tela de revisão mostra os pareamentos encontrados para você confirmar ou corrigir antes de importar — nada é adicionado sem essa confirmação.
+4. Para colocar **capas** nos jogos, toque na miniatura de qualquer card e escolha uma imagem, ou use **"Importar capas"** para mandar várias de uma vez — o pareamento por nome é o mesmo usado nas ROMs, e vale para todos os jogos do catálogo (inclusive 3DS, Switch e PC). Sem capa, cada jogo mostra um marcador colorido próprio. Passe o mouse (ou toque) na capa para trocá-la ou removê-la pelo "×".
+5. Use o filtro **"ROM: com ROM adicionada / sem ROM"** para ver rapidamente o que já foi importado. A aba **"Favoritos"** mostra só os jogos marcados com a estrelinha do card, e as ordenações **"Jogados recentemente"**/**"ROM adicionada recentemente"** ajudam a achar o que você estava jogando.
 6. Na aba **Emuladores**, você pode:
    - Ver quantos jogos de cada plataforma já têm ROM.
    - Enviar um **BIOS/firmware opcional** para GBA e NDS (melhora compatibilidade; sem ele o emulador tenta rodar mesmo assim).
@@ -40,6 +40,14 @@ Nos bastidores, o app não depende da persistência do EmulatorJS para isso. A b
 
 Tudo isso fica apenas neste navegador/aparelho.
 
+## Backups manuais de save (checkpoints)
+
+Além do save automático acima, o botão **"Backups"** (na tela do jogo) abre um painel onde dá pra guardar pontos de restauração nomeados — por exemplo, "antes da Elite 4" — sem depender do save único que o app mantém sozinho.
+
+- **"+ Criar backup agora"** tira uma foto do save atual do jogo (peça para o jogo salvar primeiro, dentro do próprio menu dele) e pede um nome.
+- Cada backup aparece na lista com nome e data; **"Restaurar"** substitui o save em uso por aquele backup e reinicia o núcleo; **"Excluir"** remove o backup.
+- Esses backups ficam guardados por jogo, separados do save automático, e também só neste navegador/aparelho (entram no "Backup completo", mas não no "Exportar progresso").
+
 ## Desempenho no Nintendo DS
 
 O DS é de longe a plataforma mais pesada aqui, e vale saber o teto: tudo roda em WebAssembly dentro do sandbox do navegador, **sem recompilação JIT**. Emuladores nativos (inclusive os de consoles mais novos) recompilam o código do jogo para a CPU do aparelho e por isso podem parecer mais rápidos mesmo emulando um console mais moderno. Essa diferença é estrutural, não é questão de ajuste.
@@ -58,16 +66,23 @@ A tela de baixo responde ao toque. O núcleo vinha com `desmume_pointer_type=mou
 
 ## Diagnóstico
 
-Durante o jogo, o botão **"🔍 Ver armazenamento"** mostra o estado real do que está acontecendo: se o multithread está mesmo ativo (`isolado`, `SharedArrayBuffer`, `EJS_threads`), quais bancos IndexedDB existem, quais arquivos de save estão gravados, as configurações do EmulatorJS e as opções de toque/tela do núcleo em execução. Foi essa ferramenta que permitiu encontrar as causas reais dos problemas de save e de toque, em vez de tentar adivinhar nomes de configuração.
+Durante o jogo, o botão **"Ver armazenamento"** mostra o estado real do que está acontecendo: se o multithread está mesmo ativo (`isolado`, `SharedArrayBuffer`, `EJS_threads`), quais bancos IndexedDB existem, quais arquivos de save estão gravados, as configurações do EmulatorJS e as opções de toque/tela do núcleo em execução. Foi essa ferramenta que permitiu encontrar as causas reais dos problemas de save e de toque, em vez de tentar adivinhar nomes de configuração.
 
 O rodapé da página mostra a versão carregada (`Versão: build-...`), útil para confirmar que o navegador não está servindo uma versão antiga em cache.
 
 ## Backup
 
-O botão **"Exportar progresso"** gera um JSON com o progresso, a lista de ROMs adicionadas (apenas nomes, não os arquivos) e as configurações do emulador — útil para levar de um aparelho a outro. As capas e os arquivos de ROM em si não entram nesse backup: como ficam no armazenamento do navegador, precisam ser importados de novo em outro aparelho.
+**"Backup completo"** gera um único arquivo `.zip` com tudo o que está guardado no aparelho: ROMs (opcional — o app pergunta), capas, BIOS, saves dos jogos, backups de save (checkpoints), progresso, notas, favoritos e configurações. **"Restaurar backup"** lê esse arquivo em outro aparelho (ou no mesmo, depois de limpar o navegador) e recoloca tudo no lugar, recarregando a página no final.
+
+- Para os jogos presentes no backup, ROM, capa e save atuais são substituídos; o resto fica como está. Checkpoints de save são somados aos que já existirem no aparelho.
+- Os jogos são casados pelo título, então o backup continua válido mesmo que o catálogo ganhe jogos novos depois.
+- O "Modo rápido" não é restaurado — ele depende do service worker de cada aparelho.
+- O ZIP é gerado sem compressão (ROMs e saves praticamente não comprimem) e sem bibliotecas externas. Limite do formato: 4 GB; se passar disso, gere sem as ROMs. Não recompacte o arquivo em outro programa antes de restaurar.
+
+**"Exportar progresso"** continua existindo e gera só um JSON leve com progresso, nomes das ROMs e configurações.
 
 ## Limitações conhecidas
 
 - Emulação de DS no navegador não alcança a velocidade de um emulador nativo (ver acima).
 - 3DS e Switch não têm emulador integrado — apenas catálogo.
-- Saves e ROMs ficam só no navegador/aparelho onde foram importados; não há sincronização entre dispositivos.
+- Não há sincronização automática entre dispositivos — use "Backup completo" / "Restaurar backup" para levar tudo de um aparelho a outro.
