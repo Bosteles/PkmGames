@@ -117,6 +117,7 @@
     <div class="modal-head">
       <h3 id="playModalTitle">Jogo</h3>
       <div class="modal-head-actions">
+        <button class="btn secondary small" id="saveSlotsBtn">📑 Backups</button>
         <button class="btn secondary small" id="checkStorageBtn">🔍 Ver armazenamento</button>
         <button class="btn secondary small" id="fullscreenBtn">⛶ Tela cheia</button>
         <button class="btn secondary small" id="closePlayModal">Fechar</button>
@@ -124,6 +125,13 @@
     </div>
     <p class="modal-status" id="playModalStatus" hidden></p>
     <p class="modal-hint">💾 O save feito <strong>dentro do jogo</strong> é guardado pelo app e restaurado automaticamente ao reabrir. Se preferir, o menu (☰) do emulador também tem <strong>"Armazenar/Carregar Save State"</strong>.</p>
+    <div class="save-slots-panel" id="saveSlotsPanel" hidden>
+      <div class="save-slots-header">
+        <strong>Backups de save deste jogo</strong>
+        <button class="btn small" id="createSlotBtn">+ Criar backup agora</button>
+      </div>
+      <div id="saveSlotsList"></div>
+    </div>
     <div class="modal-body" id="playModalBody"></div>
   </div>
 </div>

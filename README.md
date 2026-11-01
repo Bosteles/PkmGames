@@ -12,7 +12,7 @@ Este app **não contém, não busca e não baixa** nenhuma ROM, BIOS ou firmware
 2. Na aba **Coleção**, cada jogo de GB/GBC/GBA/NDS tem um botão **"Adicionar ROM"** — selecione o arquivo do jogo. O card passa a mostrar "✅ ROM adicionada" e libera o botão **"▶ Jogar"**. Se o nome do arquivo não parecer mencionar o jogo, o app avisa antes de aceitar.
 3. Para importar várias ROMs de uma vez, use **"📁 Importar pasta (com subpastas)"** — que vasculha a pasta escolhida inteira, incluindo subpastas — ou **"🗂️ Importar arquivos selecionados"**, se preferir escolher arquivo por arquivo. O app tenta casar cada arquivo `.gb`/`.gbc`/`.gba`/`.nds` com o jogo certo pelo nome (ignorando tags como "(USA)", "[!]", acentos etc.). Uma tela de revisão mostra os pareamentos encontrados para você confirmar ou corrigir antes de importar — nada é adicionado sem essa confirmação.
 4. Para colocar **capas** nos jogos, toque na miniatura de qualquer card e escolha uma imagem, ou use **"🖼️ Importar capas"** para mandar várias de uma vez — o pareamento por nome é o mesmo usado nas ROMs, e vale para todos os jogos do catálogo (inclusive 3DS, Switch e PC). Sem capa, cada jogo mostra um marcador colorido próprio. Passe o mouse (ou toque) na capa para trocá-la ou removê-la pelo "×".
-5. Use o filtro **"ROM: com ROM adicionada / sem ROM"** para ver rapidamente o que já foi importado.
+5. Use o filtro **"ROM: com ROM adicionada / sem ROM"** para ver rapidamente o que já foi importado. A aba **"⭐ Favoritos"** mostra só os jogos marcados com a estrelinha do card, e as ordenações **"Jogados recentemente"**/**"ROM adicionada recentemente"** ajudam a achar o que você estava jogando.
 6. Na aba **Emuladores**, você pode:
    - Ver quantos jogos de cada plataforma já têm ROM.
    - Enviar um **BIOS/firmware opcional** para GBA e NDS (melhora compatibilidade; sem ele o emulador tenta rodar mesmo assim).
@@ -39,6 +39,14 @@ Nos bastidores, o app não depende da persistência do EmulatorJS para isso. A b
 **Save State** (menu ☰ do emulador → "Armazenar/Carregar Save State") continua disponível como alternativa, salvando no navegador sem baixar arquivo. Em **Ajustes → Save States** dá pra configurar slot e intervalo.
 
 Tudo isso fica apenas neste navegador/aparelho.
+
+## Backups manuais de save (checkpoints)
+
+Além do save automático acima, o botão **"📑 Backups"** (na tela do jogo) abre um painel onde dá pra guardar pontos de restauração nomeados — por exemplo, "antes da Elite 4" — sem depender do save único que o app mantém sozinho.
+
+- **"+ Criar backup agora"** tira uma foto do save atual do jogo (peça para o jogo salvar primeiro, dentro do próprio menu dele) e pede um nome.
+- Cada backup aparece na lista com nome e data; **"Restaurar"** substitui o save em uso por aquele backup e reinicia o núcleo; **"Excluir"** remove o backup.
+- Esses backups ficam guardados por jogo, separados do save automático, e também só neste navegador/aparelho (não entram no "Exportar progresso" nem no backup completo).
 
 ## Desempenho no Nintendo DS
 
