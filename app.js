@@ -1,9 +1,11 @@
 const games = [{"title":"Pokémon Red","platform":"GB","generation":"1ª geração","year":1996,"type":"Série principal","region":"Kanto","note":"Versão original da primeira geração.","rating":8.7},{"title":"Pokémon Blue","platform":"GB","generation":"1ª geração","year":1996,"type":"Série principal","region":"Kanto","note":"Versão complementar da primeira geração.","rating":8.7},{"title":"Pokémon Yellow","platform":"GB","generation":"1ª geração","year":1998,"type":"Série principal","region":"Kanto","note":"Edição especial inspirada no anime.","rating":8.8},{"title":"Pokémon Gold","platform":"GBC","generation":"2ª geração","year":1999,"type":"Série principal","region":"Johto","note":"Introduz Johto, ciclo de dia e noite e criação.","rating":9.2},{"title":"Pokémon Silver","platform":"GBC","generation":"2ª geração","year":1999,"type":"Série principal","region":"Johto","note":"Versão complementar de Gold.","rating":9.2},{"title":"Pokémon Crystal","platform":"GBC","generation":"2ª geração","year":2000,"type":"Série principal","region":"Johto","note":"Edição aprimorada de Gold e Silver.","rating":9.3},{"title":"Pokémon Ruby","platform":"GBA","generation":"3ª geração","year":2002,"type":"Série principal","region":"Hoenn","note":"Apresenta Hoenn, habilidades e batalhas em dupla.","rating":8.8},{"title":"Pokémon Sapphire","platform":"GBA","generation":"3ª geração","year":2002,"type":"Série principal","region":"Hoenn","note":"Versão complementar de Ruby.","rating":8.8},{"title":"Pokémon Emerald","platform":"GBA","generation":"3ª geração","year":2004,"type":"Série principal","region":"Hoenn","note":"Edição aprimorada com Battle Frontier.","rating":9.4},{"title":"Pokémon FireRed","platform":"GBA","generation":"3ª geração","year":2004,"type":"Remake","region":"Kanto","note":"Remake moderno de Red.","rating":9.1},{"title":"Pokémon LeafGreen","platform":"GBA","generation":"3ª geração","year":2004,"type":"Remake","region":"Kanto","note":"Remake moderno de Green/Blue.","rating":9.1},{"title":"Pokémon Diamond","platform":"NDS","generation":"4ª geração","year":2006,"type":"Série principal","region":"Sinnoh","note":"Primeira geração principal no Nintendo DS.","rating":8.5},{"title":"Pokémon Pearl","platform":"NDS","generation":"4ª geração","year":2006,"type":"Série principal","region":"Sinnoh","note":"Versão complementar de Diamond.","rating":8.5},{"title":"Pokémon Platinum","platform":"NDS","generation":"4ª geração","year":2008,"type":"Série principal","region":"Sinnoh","note":"Edição aprimorada de Diamond e Pearl.","rating":9.2},{"title":"Pokémon HeartGold","platform":"NDS","generation":"4ª geração","year":2009,"type":"Remake","region":"Johto","note":"Remake de Gold com conteúdo expandido.","rating":9.6},{"title":"Pokémon SoulSilver","platform":"NDS","generation":"4ª geração","year":2009,"type":"Remake","region":"Johto","note":"Remake de Silver com conteúdo expandido.","rating":9.6},{"title":"Pokémon Black","platform":"NDS","generation":"5ª geração","year":2010,"type":"Série principal","region":"Unova","note":"Nova Pokédex regional e história mais elaborada.","rating":9.0},{"title":"Pokémon White","platform":"NDS","generation":"5ª geração","year":2010,"type":"Série principal","region":"Unova","note":"Versão complementar de Black.","rating":9.0},{"title":"Pokémon Black 2","platform":"NDS","generation":"5ª geração","year":2012,"type":"Sequência","region":"Unova","note":"Sequência direta ambientada dois anos depois.","rating":9.4},{"title":"Pokémon White 2","platform":"NDS","generation":"5ª geração","year":2012,"type":"Sequência","region":"Unova","note":"Versão complementar de Black 2.","rating":9.4},{"title":"Pokémon X","platform":"3DS","generation":"6ª geração","year":2013,"type":"Série principal","region":"Kalos","note":"Primeira aventura principal totalmente em 3D.","rating":8.5},{"title":"Pokémon Y","platform":"3DS","generation":"6ª geração","year":2013,"type":"Série principal","region":"Kalos","note":"Versão complementar de X.","rating":8.5},{"title":"Pokémon Omega Ruby","platform":"3DS","generation":"6ª geração","year":2014,"type":"Remake","region":"Hoenn","note":"Remake de Ruby com Mega Evolução.","rating":8.8},{"title":"Pokémon Alpha Sapphire","platform":"3DS","generation":"6ª geração","year":2014,"type":"Remake","region":"Hoenn","note":"Remake de Sapphire com Mega Evolução.","rating":8.8},{"title":"Pokémon Sun","platform":"3DS","generation":"7ª geração","year":2016,"type":"Série principal","region":"Alola","note":"Estrutura de ilhas e provas insulares.","rating":8.4},{"title":"Pokémon Moon","platform":"3DS","generation":"7ª geração","year":2016,"type":"Série principal","region":"Alola","note":"Versão complementar de Sun.","rating":8.4},{"title":"Pokémon Ultra Sun","platform":"3DS","generation":"7ª geração","year":2017,"type":"Série principal","region":"Alola","note":"Versão expandida de Sun.","rating":8.6},{"title":"Pokémon Ultra Moon","platform":"3DS","generation":"7ª geração","year":2017,"type":"Série principal","region":"Alola","note":"Versão expandida de Moon.","rating":8.6},{"title":"Pokémon Let's Go, Pikachu!","platform":"Switch","generation":"7ª geração","year":2018,"type":"Remake","region":"Kanto","note":"Releitura acessível de Pokémon Yellow.","rating":8.1},{"title":"Pokémon Let's Go, Eevee!","platform":"Switch","generation":"7ª geração","year":2018,"type":"Remake","region":"Kanto","note":"Versão complementar com Eevee.","rating":8.1},{"title":"Pokémon Sword","platform":"Switch","generation":"8ª geração","year":2019,"type":"Série principal","region":"Galar","note":"Introduz a Área Selvagem e Dynamax.","rating":8.0},{"title":"Pokémon Shield","platform":"Switch","generation":"8ª geração","year":2019,"type":"Série principal","region":"Galar","note":"Versão complementar de Sword.","rating":8.0},{"title":"Pokémon Brilliant Diamond","platform":"Switch","generation":"8ª geração","year":2021,"type":"Remake","region":"Sinnoh","note":"Remake fiel de Diamond.","rating":7.2},{"title":"Pokémon Shining Pearl","platform":"Switch","generation":"8ª geração","year":2021,"type":"Remake","region":"Sinnoh","note":"Remake fiel de Pearl.","rating":7.2},{"title":"Pokémon Legends: Arceus","platform":"Switch","generation":"8ª geração","year":2022,"type":"Ação/RPG","region":"Hisui","note":"Exploração aberta no passado de Sinnoh.","rating":9.1},{"title":"Pokémon Scarlet","platform":"Switch","generation":"9ª geração","year":2022,"type":"Série principal","region":"Paldea","note":"Estrutura de mundo aberto.","rating":7.6},{"title":"Pokémon Violet","platform":"Switch","generation":"9ª geração","year":2022,"type":"Série principal","region":"Paldea","note":"Versão complementar de Scarlet.","rating":7.6},{"title":"Pokémon Pinball","platform":"GBC","generation":"Clássicos","year":1999,"type":"Spin-off","region":"—","note":"Pinball temático com captura de Pokémon.","rating":8.0},{"title":"Pokémon Trading Card Game","platform":"GBC","generation":"Clássicos","year":1998,"type":"Spin-off","region":"—","note":"RPG baseado no jogo de cartas.","rating":8.4},{"title":"Pokémon Mystery Dungeon: Red Rescue Team","platform":"GBA","generation":"Spin-offs","year":2005,"type":"Mystery Dungeon","region":"—","note":"RPG de masmorras com Pokémon como protagonistas.","rating":8.1},{"title":"Pokémon Mystery Dungeon: Explorers of Sky","platform":"NDS","generation":"Spin-offs","year":2009,"type":"Mystery Dungeon","region":"—","note":"Uma das histórias mais elogiadas da série.","rating":9.3},{"title":"Pokémon Ranger","platform":"NDS","generation":"Spin-offs","year":2006,"type":"Ranger","region":"Fiore","note":"Captura por gestos usando a tela de toque.","rating":7.8},{"title":"Pokémon Conquest","platform":"NDS","generation":"Spin-offs","year":2012,"type":"Estratégia","region":"Ransei","note":"Estratégia tática em parceria com guerreiros.","rating":8.8},{"title":"New Pokémon Snap","platform":"Switch","generation":"Spin-offs","year":2021,"type":"Fotografia","region":"Lental","note":"Exploração fotográfica em trilhos.","rating":8.5},{"title":"Pokémon Unbound","platform":"GBA","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Borrius","note":"Campanha extensa, dificuldade configurável e muitos recursos modernos.","rating":9.6},{"title":"Pokémon Radical Red","platform":"GBA","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Kanto","note":"Foco em desafio, batalhas competitivas e qualidade de vida.","rating":9.2},{"title":"Pokémon Gaia","platform":"GBA","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Orbtus","note":"Aventura tradicional em uma região original.","rating":8.8},{"title":"Pokémon Glazed","platform":"GBA","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Tunod","note":"Várias regiões e longa duração.","rating":8.6},{"title":"Pokémon FireRed: Rocket Edition","platform":"GBA","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Kanto","note":"Campanha pela perspectiva de um recruta da Equipe Rocket.","rating":9.3},{"title":"Pokémon Inclement Emerald","platform":"GBA","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Hoenn","note":"Reinterpretação difícil e modernizada de Emerald.","rating":9.0},{"title":"Pokémon Emerald Rogue","platform":"GBA","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"—","note":"Pokémon em formato roguelike, com campanhas curtas e repetíveis.","rating":9.4},{"title":"Pokémon Sword Shield Ultimate","platform":"GBA","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Galar","note":"Hack de GBA trazendo Pokémon e elementos de Galar para o formato clássico.","rating":8.5},{"title":"Pokémon Walter Blue","platform":"GBA","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Kanto","note":"Hack de GBA com tom sombrio, ambientado em Kanto.","rating":8.3},{"title":"Pokémon Quetzal","platform":"GBA","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"—","note":"Hack de GBA com região própria e criaturas originais.","rating":8.6},{"title":"Pokémon Prism","platform":"GBC","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Nalgo","note":"Hack ambicioso de Crystal com região própria.","rating":8.9},{"title":"Pokémon Crystal Clear","platform":"GBC","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Johto/Kanto","note":"Experiência de mundo aberto baseada em Crystal.","rating":9.1},{"title":"Pokémon Polished Crystal","platform":"GBC","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Johto","note":"Versão refinada e expandida de Crystal.","rating":9.0},{"title":"Pokémon Infinite Fusion","platform":"PC/Android","generation":"Projeto de fã","year":"—","type":"Fan game","region":"Kanto","note":"Permite fundir espécies e criar combinações únicas.","rating":9.2},{"title":"Pokémon Reborn","platform":"PC","generation":"Projeto de fã","year":"—","type":"Fan game","region":"Reborn","note":"História extensa, dificuldade alta e cenários urbanos.","rating":8.8},{"title":"Pokémon Rejuvenation","platform":"PC","generation":"Projeto de fã","year":"—","type":"Fan game","region":"Aevium","note":"Grande campanha narrativa inspirada em Reborn.","rating":8.7},{"title":"Pokémon Uranium","platform":"PC","generation":"Projeto de fã","year":"—","type":"Fan game","region":"Tandor","note":"Região própria e criaturas originais.","rating":8.6},{"title":"Pokémon Insurgence","platform":"PC","generation":"Projeto de fã","year":"—","type":"Fan game","region":"Torren","note":"Campanha longa, formas Delta e tom mais sombrio.","rating":8.9}];
 
-const BUILD_ID = "build-30-add-quetzal";
+const BUILD_ID = "build-31-favorites-recent";
 const KEY = "pokemon-collection-andre-v1";
 const SETTINGS_KEY = "pokemon-collection-andre-emu-settings-v1";
 const NOTES_KEY = "pokemon-collection-andre-notes-v1";
+const FAVORITES_KEY = "pokemon-collection-andre-favorites-v1";
+const LAST_PLAYED_KEY = "pokemon-collection-andre-lastplayed-v1";
 const DEFAULT_DATA_PATH = "https://cdn.emulatorjs.org/stable/data/";
 
 const CORE_INFO = {
@@ -79,6 +81,8 @@ function bestMatchIndex(matches) {
 
 let state = JSON.parse(localStorage.getItem(KEY) || "{}");
 let notes = JSON.parse(localStorage.getItem(NOTES_KEY) || "{}");
+let favorites = JSON.parse(localStorage.getItem(FAVORITES_KEY) || "{}");
+let lastPlayed = JSON.parse(localStorage.getItem(LAST_PLAYED_KEY) || "{}");
 let settings = Object.assign({
   ndsCore: "melonds",
   dataPath: DEFAULT_DATA_PATH,
@@ -228,6 +232,14 @@ function placeholderStyle(i, title) {
 function saveState() { localStorage.setItem(KEY, JSON.stringify(state)); updateStats(); }
 function saveSettings() { localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings)); }
 function saveNotes() { localStorage.setItem(NOTES_KEY, JSON.stringify(notes)); }
+function saveFavorites() { localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites)); }
+function saveLastPlayed() { localStorage.setItem(LAST_PLAYED_KEY, JSON.stringify(lastPlayed)); }
+function toggleFavorite(i) {
+  if (favorites[i]) delete favorites[i];
+  else favorites[i] = true;
+  saveFavorites();
+  render();
+}
 
 function escapeAttr(s) {
   return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -245,6 +257,7 @@ function initSelect(id, values) {
 }
 
 function matchesTab(g) {
+  if (activeTab === "favorites") return !!favorites[g.i];
   if (activeTab === "official") return g.generation !== "Projeto de fã";
   if (activeTab === "fan") return g.generation === "Projeto de fã";
   if (activeTab === "main") return ["Série principal","Remake","Sequência","Ação/RPG"].includes(g.type);
@@ -279,6 +292,8 @@ function render() {
     if (sort === "year-desc") return (Number(b.year) || 0) - (Number(a.year) || 0) || a.title.localeCompare(b.title, "pt-BR");
     if (sort === "year-asc") return (Number(a.year) || 9999) - (Number(b.year) || 9999) || a.title.localeCompare(b.title, "pt-BR");
     if (sort === "name-asc") return a.title.localeCompare(b.title, "pt-BR");
+    if (sort === "played-desc") return (lastPlayed[b.i] || 0) - (lastPlayed[a.i] || 0) || a.title.localeCompare(b.title, "pt-BR");
+    if (sort === "added-desc") return (romIndex.get(b.i)?.addedAt || 0) - (romIndex.get(a.i)?.addedAt || 0) || a.title.localeCompare(b.title, "pt-BR");
     return a.i - b.i;
   });
   $("#empty").hidden = filtered.length > 0;
@@ -330,6 +345,7 @@ function render() {
           <span class="badge">${g.type}</span>
           <span class="badge">${g.year}</span>
           <span class="badge rating-badge">★ ${g.rating.toFixed(1)}</span>
+          <button class="favorite-btn${favorites[g.i] ? " active" : ""}" data-action="favorite" data-i="${g.i}" title="${favorites[g.i] ? "Remover dos favoritos" : "Adicionar aos favoritos"}">${favorites[g.i] ? "⭐" : "☆"}</button>
         </div>
         <h3>${g.title}</h3>
         <p>${g.note}</p>
@@ -345,6 +361,7 @@ function render() {
       state[g.i] = nextStatus(getStatus(g.i));
       saveState(); render();
     });
+    card.querySelector('[data-action="favorite"]').addEventListener("click", () => toggleFavorite(g.i));
     const fileInput = card.querySelector('[data-action="add-rom"]');
     if (fileInput) fileInput.addEventListener("change", e => {
       const file = e.target.files[0];
@@ -557,6 +574,8 @@ function renderEmulatorSettings() {
 // than trying to do it by hand.
 function openPlayer(i) {
   if (!romIndex.has(i)) { toast("Adicione uma ROM antes de jogar."); return; }
+  lastPlayed[i] = Date.now();
+  saveLastPlayed();
   location.href = "index.html?play=" + i;
 }
 

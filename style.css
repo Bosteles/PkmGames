@@ -68,6 +68,8 @@ button,input,select{font:inherit}
 .badges{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
 .badge{font-size:11px;padding:5px 8px;border-radius:999px;background:rgba(255,255,255,.07);color:var(--muted)}
 .rating-badge{background:rgba(255,216,77,.14);color:#ffe987;border:1px solid rgba(255,216,77,.23);font-weight:800}
+.favorite-btn{margin-left:auto;background:none;border:0;font-size:18px;line-height:1;cursor:pointer;color:var(--muted);padding:0 2px}
+.favorite-btn.active{color:var(--accent)}
 .rom-badge{font-weight:800}
 .rom-badge.on{background:rgba(82,214,138,.16);color:#8ff0bc;border:1px solid rgba(82,214,138,.3)}
 .rom-badge.off{background:rgba(255,255,255,.06);color:var(--muted)}
