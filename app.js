@@ -1,6 +1,6 @@
 const games = [{"title":"Pokémon Red","platform":"GB","generation":"1ª geração","year":1996,"type":"Série principal","region":"Kanto","note":"Versão original da primeira geração.","rating":8.7},{"title":"Pokémon Blue","platform":"GB","generation":"1ª geração","year":1996,"type":"Série principal","region":"Kanto","note":"Versão complementar da primeira geração.","rating":8.7},{"title":"Pokémon Yellow","platform":"GB","generation":"1ª geração","year":1998,"type":"Série principal","region":"Kanto","note":"Edição especial inspirada no anime.","rating":8.8},{"title":"Pokémon Gold","platform":"GBC","generation":"2ª geração","year":1999,"type":"Série principal","region":"Johto","note":"Introduz Johto, ciclo de dia e noite e criação.","rating":9.2},{"title":"Pokémon Silver","platform":"GBC","generation":"2ª geração","year":1999,"type":"Série principal","region":"Johto","note":"Versão complementar de Gold.","rating":9.2},{"title":"Pokémon Crystal","platform":"GBC","generation":"2ª geração","year":2000,"type":"Série principal","region":"Johto","note":"Edição aprimorada de Gold e Silver.","rating":9.3},{"title":"Pokémon Ruby","platform":"GBA","generation":"3ª geração","year":2002,"type":"Série principal","region":"Hoenn","note":"Apresenta Hoenn, habilidades e batalhas em dupla.","rating":8.8},{"title":"Pokémon Sapphire","platform":"GBA","generation":"3ª geração","year":2002,"type":"Série principal","region":"Hoenn","note":"Versão complementar de Ruby.","rating":8.8},{"title":"Pokémon Emerald","platform":"GBA","generation":"3ª geração","year":2004,"type":"Série principal","region":"Hoenn","note":"Edição aprimorada com Battle Frontier.","rating":9.4},{"title":"Pokémon FireRed","platform":"GBA","generation":"3ª geração","year":2004,"type":"Remake","region":"Kanto","note":"Remake moderno de Red.","rating":9.1},{"title":"Pokémon LeafGreen","platform":"GBA","generation":"3ª geração","year":2004,"type":"Remake","region":"Kanto","note":"Remake moderno de Green/Blue.","rating":9.1},{"title":"Pokémon Diamond","platform":"NDS","generation":"4ª geração","year":2006,"type":"Série principal","region":"Sinnoh","note":"Primeira geração principal no Nintendo DS.","rating":8.5},{"title":"Pokémon Pearl","platform":"NDS","generation":"4ª geração","year":2006,"type":"Série principal","region":"Sinnoh","note":"Versão complementar de Diamond.","rating":8.5},{"title":"Pokémon Platinum","platform":"NDS","generation":"4ª geração","year":2008,"type":"Série principal","region":"Sinnoh","note":"Edição aprimorada de Diamond e Pearl.","rating":9.2},{"title":"Pokémon HeartGold","platform":"NDS","generation":"4ª geração","year":2009,"type":"Remake","region":"Johto","note":"Remake de Gold com conteúdo expandido.","rating":9.6},{"title":"Pokémon SoulSilver","platform":"NDS","generation":"4ª geração","year":2009,"type":"Remake","region":"Johto","note":"Remake de Silver com conteúdo expandido.","rating":9.6},{"title":"Pokémon Black","platform":"NDS","generation":"5ª geração","year":2010,"type":"Série principal","region":"Unova","note":"Nova Pokédex regional e história mais elaborada.","rating":9.0},{"title":"Pokémon White","platform":"NDS","generation":"5ª geração","year":2010,"type":"Série principal","region":"Unova","note":"Versão complementar de Black.","rating":9.0},{"title":"Pokémon Black 2","platform":"NDS","generation":"5ª geração","year":2012,"type":"Sequência","region":"Unova","note":"Sequência direta ambientada dois anos depois.","rating":9.4},{"title":"Pokémon White 2","platform":"NDS","generation":"5ª geração","year":2012,"type":"Sequência","region":"Unova","note":"Versão complementar de Black 2.","rating":9.4},{"title":"Pokémon X","platform":"3DS","generation":"6ª geração","year":2013,"type":"Série principal","region":"Kalos","note":"Primeira aventura principal totalmente em 3D.","rating":8.5},{"title":"Pokémon Y","platform":"3DS","generation":"6ª geração","year":2013,"type":"Série principal","region":"Kalos","note":"Versão complementar de X.","rating":8.5},{"title":"Pokémon Omega Ruby","platform":"3DS","generation":"6ª geração","year":2014,"type":"Remake","region":"Hoenn","note":"Remake de Ruby com Mega Evolução.","rating":8.8},{"title":"Pokémon Alpha Sapphire","platform":"3DS","generation":"6ª geração","year":2014,"type":"Remake","region":"Hoenn","note":"Remake de Sapphire com Mega Evolução.","rating":8.8},{"title":"Pokémon Sun","platform":"3DS","generation":"7ª geração","year":2016,"type":"Série principal","region":"Alola","note":"Estrutura de ilhas e provas insulares.","rating":8.4},{"title":"Pokémon Moon","platform":"3DS","generation":"7ª geração","year":2016,"type":"Série principal","region":"Alola","note":"Versão complementar de Sun.","rating":8.4},{"title":"Pokémon Ultra Sun","platform":"3DS","generation":"7ª geração","year":2017,"type":"Série principal","region":"Alola","note":"Versão expandida de Sun.","rating":8.6},{"title":"Pokémon Ultra Moon","platform":"3DS","generation":"7ª geração","year":2017,"type":"Série principal","region":"Alola","note":"Versão expandida de Moon.","rating":8.6},{"title":"Pokémon Let's Go, Pikachu!","platform":"Switch","generation":"7ª geração","year":2018,"type":"Remake","region":"Kanto","note":"Releitura acessível de Pokémon Yellow.","rating":8.1},{"title":"Pokémon Let's Go, Eevee!","platform":"Switch","generation":"7ª geração","year":2018,"type":"Remake","region":"Kanto","note":"Versão complementar com Eevee.","rating":8.1},{"title":"Pokémon Sword","platform":"Switch","generation":"8ª geração","year":2019,"type":"Série principal","region":"Galar","note":"Introduz a Área Selvagem e Dynamax.","rating":8.0},{"title":"Pokémon Shield","platform":"Switch","generation":"8ª geração","year":2019,"type":"Série principal","region":"Galar","note":"Versão complementar de Sword.","rating":8.0},{"title":"Pokémon Brilliant Diamond","platform":"Switch","generation":"8ª geração","year":2021,"type":"Remake","region":"Sinnoh","note":"Remake fiel de Diamond.","rating":7.2},{"title":"Pokémon Shining Pearl","platform":"Switch","generation":"8ª geração","year":2021,"type":"Remake","region":"Sinnoh","note":"Remake fiel de Pearl.","rating":7.2},{"title":"Pokémon Legends: Arceus","platform":"Switch","generation":"8ª geração","year":2022,"type":"Ação/RPG","region":"Hisui","note":"Exploração aberta no passado de Sinnoh.","rating":9.1},{"title":"Pokémon Scarlet","platform":"Switch","generation":"9ª geração","year":2022,"type":"Série principal","region":"Paldea","note":"Estrutura de mundo aberto.","rating":7.6},{"title":"Pokémon Violet","platform":"Switch","generation":"9ª geração","year":2022,"type":"Série principal","region":"Paldea","note":"Versão complementar de Scarlet.","rating":7.6},{"title":"Pokémon Pinball","platform":"GBC","generation":"Clássicos","year":1999,"type":"Spin-off","region":"—","note":"Pinball temático com captura de Pokémon.","rating":8.0},{"title":"Pokémon Trading Card Game","platform":"GBC","generation":"Clássicos","year":1998,"type":"Spin-off","region":"—","note":"RPG baseado no jogo de cartas.","rating":8.4},{"title":"Pokémon Mystery Dungeon: Red Rescue Team","platform":"GBA","generation":"Spin-offs","year":2005,"type":"Mystery Dungeon","region":"—","note":"RPG de masmorras com Pokémon como protagonistas.","rating":8.1},{"title":"Pokémon Mystery Dungeon: Explorers of Sky","platform":"NDS","generation":"Spin-offs","year":2009,"type":"Mystery Dungeon","region":"—","note":"Uma das histórias mais elogiadas da série.","rating":9.3},{"title":"Pokémon Ranger","platform":"NDS","generation":"Spin-offs","year":2006,"type":"Ranger","region":"Fiore","note":"Captura por gestos usando a tela de toque.","rating":7.8},{"title":"Pokémon Conquest","platform":"NDS","generation":"Spin-offs","year":2012,"type":"Estratégia","region":"Ransei","note":"Estratégia tática em parceria com guerreiros.","rating":8.8},{"title":"New Pokémon Snap","platform":"Switch","generation":"Spin-offs","year":2021,"type":"Fotografia","region":"Lental","note":"Exploração fotográfica em trilhos.","rating":8.5},{"title":"Pokémon Unbound","platform":"GBA","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Borrius","note":"Campanha extensa, dificuldade configurável e muitos recursos modernos.","rating":9.6},{"title":"Pokémon Radical Red","platform":"GBA","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Kanto","note":"Foco em desafio, batalhas competitivas e qualidade de vida.","rating":9.2},{"title":"Pokémon Gaia","platform":"GBA","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Orbtus","note":"Aventura tradicional em uma região original.","rating":8.8},{"title":"Pokémon Glazed","platform":"GBA","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Tunod","note":"Várias regiões e longa duração.","rating":8.6},{"title":"Pokémon FireRed: Rocket Edition","platform":"GBA","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Kanto","note":"Campanha pela perspectiva de um recruta da Equipe Rocket.","rating":9.3},{"title":"Pokémon Inclement Emerald","platform":"GBA","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Hoenn","note":"Reinterpretação difícil e modernizada de Emerald.","rating":9.0},{"title":"Pokémon Emerald Rogue","platform":"GBA","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"—","note":"Pokémon em formato roguelike, com campanhas curtas e repetíveis.","rating":9.4},{"title":"Pokémon Sword Shield Ultimate","platform":"GBA","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Galar","note":"Hack de GBA trazendo Pokémon e elementos de Galar para o formato clássico.","rating":8.5},{"title":"Pokémon Walter Blue","platform":"GBA","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Kanto","note":"Hack de GBA com tom sombrio, ambientado em Kanto.","rating":8.3},{"title":"Pokémon Quetzal","platform":"GBA","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"—","note":"Hack de GBA com região própria e criaturas originais.","rating":8.6},{"title":"Pokémon Prism","platform":"GBC","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Nalgo","note":"Hack ambicioso de Crystal com região própria.","rating":8.9},{"title":"Pokémon Crystal Clear","platform":"GBC","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Johto/Kanto","note":"Experiência de mundo aberto baseada em Crystal.","rating":9.1},{"title":"Pokémon Polished Crystal","platform":"GBC","generation":"Projeto de fã","year":"—","type":"Hack ROM","region":"Johto","note":"Versão refinada e expandida de Crystal.","rating":9.0},{"title":"Pokémon Infinite Fusion","platform":"PC/Android","generation":"Projeto de fã","year":"—","type":"Fan game","region":"Kanto","note":"Permite fundir espécies e criar combinações únicas.","rating":9.2},{"title":"Pokémon Reborn","platform":"PC","generation":"Projeto de fã","year":"—","type":"Fan game","region":"Reborn","note":"História extensa, dificuldade alta e cenários urbanos.","rating":8.8},{"title":"Pokémon Rejuvenation","platform":"PC","generation":"Projeto de fã","year":"—","type":"Fan game","region":"Aevium","note":"Grande campanha narrativa inspirada em Reborn.","rating":8.7},{"title":"Pokémon Uranium","platform":"PC","generation":"Projeto de fã","year":"—","type":"Fan game","region":"Tandor","note":"Região própria e criaturas originais.","rating":8.6},{"title":"Pokémon Insurgence","platform":"PC","generation":"Projeto de fã","year":"—","type":"Fan game","region":"Torren","note":"Campanha longa, formas Delta e tom mais sombrio.","rating":8.9}];
 
-const BUILD_ID = "build-32-save-slots";
+const BUILD_ID = "build-33-full-backup";
 const KEY = "pokemon-collection-andre-v1";
 const SETTINGS_KEY = "pokemon-collection-andre-emu-settings-v1";
 const NOTES_KEY = "pokemon-collection-andre-notes-v1";
@@ -1290,6 +1290,316 @@ async function closePlayer() {
 
 /* ---------- misc UI ---------- */
 let toastTimer = null;
+/* ---------- full backup (ZIP) ---------- */
+// Store-only ZIP (no compression): ROMs and saves barely compress anyway, and
+// it keeps the app dependency-free. Without ZIP64 the archive caps at 4 GB,
+// which is checked up front.
+const CRC_TABLE = (() => {
+  const t = new Uint32Array(256);
+  for (let n = 0; n < 256; n++) {
+    let c = n;
+    for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1;
+    t[n] = c >>> 0;
+  }
+  return t;
+})();
+async function blobCrc32(blob) {
+  let crc = 0xFFFFFFFF;
+  const CHUNK = 8 << 20; // read in slices so a 256 MB ROM isn't held in memory twice
+  for (let o = 0; o < blob.size; o += CHUNK) {
+    const bytes = new Uint8Array(await blob.slice(o, o + CHUNK).arrayBuffer());
+    for (let i = 0; i < bytes.length; i++) crc = CRC_TABLE[(crc ^ bytes[i]) & 0xFF] ^ (crc >>> 8);
+  }
+  return (crc ^ 0xFFFFFFFF) >>> 0;
+}
+const ZIP_LIMIT = 0xFFFFFFFF;
+
+async function buildZip(entries, onProgress) {
+  const enc = new TextEncoder();
+  const now = new Date();
+  const dosTime = (now.getHours() << 11) | (now.getMinutes() << 5) | (now.getSeconds() >> 1);
+  const dosDate = ((now.getFullYear() - 1980) << 9) | ((now.getMonth() + 1) << 5) | now.getDate();
+  const parts = [], central = [];
+  let offset = 0;
+  for (let k = 0; k < entries.length; k++) {
+    const { name, blob } = entries[k];
+    if (onProgress) onProgress(k, entries.length);
+    const nameBytes = enc.encode(name);
+    const crc = await blobCrc32(blob);
+    const size = blob.size;
+    const lh = new DataView(new ArrayBuffer(30));
+    lh.setUint32(0, 0x04034b50, true);
+    lh.setUint16(4, 20, true);
+    lh.setUint16(6, 0x0800, true); // UTF-8 file names
+    lh.setUint16(8, 0, true);      // stored
+    lh.setUint16(10, dosTime, true);
+    lh.setUint16(12, dosDate, true);
+    lh.setUint32(14, crc, true);
+    lh.setUint32(18, size, true);
+    lh.setUint32(22, size, true);
+    lh.setUint16(26, nameBytes.length, true);
+    parts.push(lh.buffer, nameBytes, blob);
+
+    const ch = new DataView(new ArrayBuffer(46));
+    ch.setUint32(0, 0x02014b50, true);
+    ch.setUint16(4, 20, true);
+    ch.setUint16(6, 20, true);
+    ch.setUint16(8, 0x0800, true);
+    ch.setUint16(10, 0, true);
+    ch.setUint16(12, dosTime, true);
+    ch.setUint16(14, dosDate, true);
+    ch.setUint32(16, crc, true);
+    ch.setUint32(20, size, true);
+    ch.setUint32(24, size, true);
+    ch.setUint16(28, nameBytes.length, true);
+    ch.setUint32(42, offset, true);
+    central.push(ch.buffer, nameBytes);
+    offset += 30 + nameBytes.length + size;
+  }
+  const cdSize = central.reduce((n, p) => n + p.byteLength, 0);
+  const eocd = new DataView(new ArrayBuffer(22));
+  eocd.setUint32(0, 0x06054b50, true);
+  eocd.setUint16(8, entries.length, true);
+  eocd.setUint16(10, entries.length, true);
+  eocd.setUint32(12, cdSize, true);
+  eocd.setUint32(16, offset, true);
+  return new Blob([...parts, ...central, eocd.buffer], { type: "application/zip" });
+}
+
+async function readZip(file) {
+  const tailLen = Math.min(file.size, 22 + 0xFFFF);
+  const tail = new DataView(await file.slice(file.size - tailLen).arrayBuffer());
+  let p = -1;
+  for (let i = tailLen - 22; i >= 0; i--) {
+    if (tail.getUint32(i, true) === 0x06054b50) { p = i; break; }
+  }
+  if (p < 0) throw new Error("O arquivo não é um ZIP válido.");
+  const count = tail.getUint16(p + 10, true);
+  const cdSize = tail.getUint32(p + 12, true);
+  const cdOffset = tail.getUint32(p + 16, true);
+  const cd = new DataView(await file.slice(cdOffset, cdOffset + cdSize).arrayBuffer());
+  const dec = new TextDecoder();
+  const out = new Map();
+  let q = 0;
+  for (let k = 0; k < count; k++) {
+    if (cd.getUint32(q, true) !== 0x02014b50) throw new Error("Índice do ZIP corrompido.");
+    const method = cd.getUint16(q + 10, true);
+    const size = cd.getUint32(q + 20, true);
+    const nameLen = cd.getUint16(q + 28, true);
+    const extraLen = cd.getUint16(q + 30, true);
+    const commentLen = cd.getUint16(q + 32, true);
+    const localOffset = cd.getUint32(q + 42, true);
+    const name = dec.decode(new Uint8Array(cd.buffer, q + 46, nameLen));
+    if (method !== 0) throw new Error("Este ZIP foi recompactado. Use o arquivo original gerado pelo app.");
+    const lh = new DataView(await file.slice(localOffset, localOffset + 30).arrayBuffer());
+    const start = localOffset + 30 + lh.getUint16(26, true) + lh.getUint16(28, true);
+    out.set(name, file.slice(start, start + size));
+    q += 46 + nameLen + extraLen + commentLen;
+  }
+  return out;
+}
+
+function formatBytes(n) {
+  if (n >= 1 << 30) return (n / (1 << 30)).toFixed(2) + " GB";
+  if (n >= 1 << 20) return (n / (1 << 20)).toFixed(1) + " MB";
+  return Math.max(1, Math.round(n / 1024)) + " KB";
+}
+
+async function exportFullBackup() {
+  const includeRoms = confirm(
+    "Incluir os arquivos de ROM no backup?\n\n" +
+    "OK = backup completo (ROMs + capas + saves + BIOS + progresso). Pode ficar grande.\n" +
+    "Cancelar = tudo, menos as ROMs."
+  );
+  toast("Preparando backup…");
+  const entries = [];
+  const manifest = {
+    app: "pokemon-collection-andre",
+    format: 1,
+    exportedAt: new Date().toISOString(),
+    buildId: BUILD_ID,
+    titles: games.map(g => g.title),
+    progress: state, notes, favorites, lastPlayed, settings,
+    roms: {}, covers: {}, bios: {}, gameSaves: {}, saveSlots: {}
+  };
+
+  if (includeRoms) {
+    for (const [i, meta] of await idbGetAll("romsMeta")) {
+      const blob = await idbGet("roms", i);
+      if (!blob) continue;
+      const file = `roms/${i}.bin`;
+      entries.push({ name: file, blob });
+      manifest.roms[i] = { meta, file };
+    }
+  }
+  for (const [i, meta] of await idbGetAll("coversMeta")) {
+    const blob = await idbGet("covers", i);
+    if (!blob) continue;
+    const file = `covers/${i}.bin`;
+    entries.push({ name: file, blob });
+    manifest.covers[i] = { meta, file, type: blob.type || "" };
+  }
+  for (const [platform, meta] of await idbGetAll("biosMeta")) {
+    const blob = await idbGet("bios", platform);
+    if (!blob) continue;
+    const file = `bios/${platform}.bin`;
+    entries.push({ name: file, blob });
+    manifest.bios[platform] = { meta, file };
+  }
+  const packFiles = (prefix, files) => (files || []).map((f, k) => {
+    const file = `${prefix}/${k}.bin`;
+    entries.push({ name: file, blob: new Blob([f.data]) });
+    return { path: f.path, mode: f.mode, file };
+  });
+  for (const [i, files] of await idbGetAll("gameSaves")) {
+    manifest.gameSaves[i] = packFiles(`saves/${i}`, files);
+  }
+  for (const [i, slots] of await idbGetAll("saveSlots")) {
+    manifest.saveSlots[i] = (slots || []).map((s, n) => ({
+      name: s.name, savedAt: s.savedAt, files: packFiles(`slots/${i}/${n}`, s.files)
+    }));
+  }
+  entries.unshift({ name: "manifest.json", blob: new Blob([JSON.stringify(manifest, null, 2)], { type: "application/json" }) });
+
+  const total = entries.reduce((n, e) => n + e.blob.size + 76 + 2 * e.name.length * 3, 22);
+  if (total > ZIP_LIMIT || entries.length > 0xFFFF) {
+    alert(`O backup ficaria com ${formatBytes(total)}, acima do limite de 4 GB do formato. Gere de novo sem incluir as ROMs.`);
+    return;
+  }
+
+  let zip;
+  try {
+    zip = await buildZip(entries, (k, n) => { if (k % 5 === 0) toast(`Gerando backup… ${k}/${n} arquivos`); });
+  } catch (err) {
+    console.error(err);
+    toast("Não foi possível gerar o backup: " + err.message);
+    return;
+  }
+  const stamp = new Date().toISOString().slice(0, 10);
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(zip);
+  a.download = `pokemon-collection-backup-${stamp}.zip`;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 60000);
+  toast(`Backup gerado (${formatBytes(zip.size)}).`);
+}
+
+async function importFullBackup(file) {
+  let entries, manifest;
+  try {
+    entries = await readZip(file);
+    const mf = entries.get("manifest.json");
+    if (!mf) throw new Error("manifest.json não encontrado — este não parece um backup do app.");
+    manifest = JSON.parse(await mf.text());
+    if (manifest.app !== "pokemon-collection-andre") throw new Error("Este ZIP não é um backup deste app.");
+  } catch (err) {
+    toast("⚠️ " + err.message);
+    return;
+  }
+
+  // Map by title rather than trusting the index, in case the catalog order
+  // differs between the version that made the backup and this one.
+  const titles = manifest.titles || [];
+  const resolveIndex = (i) => {
+    const n = Number(i);
+    const t = titles[n];
+    if (!t) return games[n] ? n : null;
+    if (games[n] && games[n].title === t) return n;
+    const j = games.findIndex(g => g.title === t);
+    return j >= 0 ? j : null;
+  };
+  const remap = (obj) => {
+    const out = {};
+    Object.entries(obj || {}).forEach(([k, v]) => { const j = resolveIndex(k); if (j !== null) out[j] = v; });
+    return out;
+  };
+  const readBytes = async (name) => {
+    const blob = entries.get(name);
+    return blob ? new Uint8Array(await blob.arrayBuffer()) : null;
+  };
+  const unpackFiles = async (files) => {
+    const out = [];
+    for (const f of files || []) {
+      const data = await readBytes(f.file);
+      if (data) out.push({ path: f.path, mode: f.mode, data });
+    }
+    return out;
+  };
+
+  const romCount = Object.keys(manifest.roms || {}).length;
+  const coverCount = Object.keys(manifest.covers || {}).length;
+  const saveCount = Object.keys(manifest.gameSaves || {}).length;
+  const slotCount = Object.values(manifest.saveSlots || {}).reduce((n, s) => n + s.length, 0);
+  const when = manifest.exportedAt ? new Date(manifest.exportedAt).toLocaleString("pt-BR") : "data desconhecida";
+  if (!confirm(
+    `Restaurar o backup de ${when}?\n\n` +
+    `${romCount} ROMs, ${coverCount} capas, ${saveCount} saves de jogo, ${slotCount} backups de save.\n\n` +
+    "Para os jogos que estão no backup, ROM, capa e save atuais serão substituídos. O resto fica como está."
+  )) return;
+
+  toast("Restaurando backup…");
+  try {
+    for (const [i, r] of Object.entries(manifest.roms || {})) {
+      const j = resolveIndex(i);
+      const blob = entries.get(r.file);
+      if (j === null || !blob) continue;
+      await idbPut("roms", j, new Blob([blob], { type: "application/octet-stream" }));
+      await idbPut("romsMeta", j, r.meta);
+    }
+    for (const [i, c] of Object.entries(manifest.covers || {})) {
+      const j = resolveIndex(i);
+      const blob = entries.get(c.file);
+      if (j === null || !blob) continue;
+      await idbPut("covers", j, new Blob([blob], { type: c.type || "image/png" }));
+      await idbPut("coversMeta", j, c.meta);
+    }
+    for (const [platform, b] of Object.entries(manifest.bios || {})) {
+      const blob = entries.get(b.file);
+      if (!blob || !CORE_INFO[platform]) continue;
+      await idbPut("bios", platform, new Blob([blob], { type: "application/octet-stream" }));
+      await idbPut("biosMeta", platform, b.meta);
+    }
+    for (const [i, files] of Object.entries(manifest.gameSaves || {})) {
+      const j = resolveIndex(i);
+      if (j === null) continue;
+      const restored = await unpackFiles(files);
+      if (restored.length) await idbPut("gameSaves", j, restored);
+    }
+    for (const [i, slots] of Object.entries(manifest.saveSlots || {})) {
+      const j = resolveIndex(i);
+      if (j === null) continue;
+      // Merge with any slots already on this device, skipping duplicates.
+      const existing = (await idbGet("saveSlots", j)) || [];
+      const seen = new Set(existing.map(s => s.name + "|" + s.savedAt));
+      for (const s of slots) {
+        if (seen.has(s.name + "|" + s.savedAt)) continue;
+        existing.push({ name: s.name, savedAt: s.savedAt, files: await unpackFiles(s.files) });
+      }
+      await idbPut("saveSlots", j, existing);
+    }
+
+    Object.assign(state, remap(manifest.progress));
+    Object.assign(notes, remap(manifest.notes));
+    Object.assign(favorites, remap(manifest.favorites));
+    Object.assign(lastPlayed, remap(manifest.lastPlayed));
+    localStorage.setItem(KEY, JSON.stringify(state));
+    saveNotes(); saveFavorites(); saveLastPlayed();
+    if (manifest.settings) {
+      // "Modo rápido" depends on this device's service-worker registration,
+      // so it stays as configured here.
+      const { threads, ...rest } = manifest.settings;
+      Object.assign(settings, rest);
+      saveSettings();
+    }
+  } catch (err) {
+    console.error(err);
+    toast("⚠️ Falha ao restaurar: " + err.message);
+    return;
+  }
+  toast("Backup restaurado. Recarregando…");
+  setTimeout(() => location.reload(), 900);
+}
+
 function toast(msg) {
   const el = $("#toast");
   el.textContent = msg;
@@ -1452,6 +1762,14 @@ async function init() {
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob); a.download = "pokemon-collection-progresso.json"; a.click();
     URL.revokeObjectURL(a.href);
+  });
+
+  on("#fullBackupBtn", "click", exportFullBackup);
+  on("#restoreBackupBtn", "click", () => $("#backupPicker").click());
+  on("#backupPicker", "change", e => {
+    const f = e.target.files[0];
+    e.target.value = "";
+    if (f) importFullBackup(f);
   });
 
   on("#closePlayModal", "click", closePlayer);

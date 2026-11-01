@@ -46,7 +46,7 @@ Além do save automático acima, o botão **"📑 Backups"** (na tela do jogo) a
 
 - **"+ Criar backup agora"** tira uma foto do save atual do jogo (peça para o jogo salvar primeiro, dentro do próprio menu dele) e pede um nome.
 - Cada backup aparece na lista com nome e data; **"Restaurar"** substitui o save em uso por aquele backup e reinicia o núcleo; **"Excluir"** remove o backup.
-- Esses backups ficam guardados por jogo, separados do save automático, e também só neste navegador/aparelho (não entram no "Exportar progresso" nem no backup completo).
+- Esses backups ficam guardados por jogo, separados do save automático, e também só neste navegador/aparelho (entram no "📦 Backup completo", mas não no "Exportar progresso").
 
 ## Desempenho no Nintendo DS
 
@@ -72,10 +72,17 @@ O rodapé da página mostra a versão carregada (`Versão: build-...`), útil pa
 
 ## Backup
 
-O botão **"Exportar progresso"** gera um JSON com o progresso, a lista de ROMs adicionadas (apenas nomes, não os arquivos) e as configurações do emulador — útil para levar de um aparelho a outro. As capas e os arquivos de ROM em si não entram nesse backup: como ficam no armazenamento do navegador, precisam ser importados de novo em outro aparelho.
+**"📦 Backup completo"** gera um único arquivo `.zip` com tudo o que está guardado no aparelho: ROMs (opcional — o app pergunta), capas, BIOS, saves dos jogos, backups de save (checkpoints), progresso, notas, favoritos e configurações. **"📥 Restaurar backup"** lê esse arquivo em outro aparelho (ou no mesmo, depois de limpar o navegador) e recoloca tudo no lugar, recarregando a página no final.
+
+- Para os jogos presentes no backup, ROM, capa e save atuais são substituídos; o resto fica como está. Checkpoints de save são somados aos que já existirem no aparelho.
+- Os jogos são casados pelo título, então o backup continua válido mesmo que o catálogo ganhe jogos novos depois.
+- O "Modo rápido" não é restaurado — ele depende do service worker de cada aparelho.
+- O ZIP é gerado sem compressão (ROMs e saves praticamente não comprimem) e sem bibliotecas externas. Limite do formato: 4 GB; se passar disso, gere sem as ROMs. Não recompacte o arquivo em outro programa antes de restaurar.
+
+**"Exportar progresso"** continua existindo e gera só um JSON leve com progresso, nomes das ROMs e configurações.
 
 ## Limitações conhecidas
 
 - Emulação de DS no navegador não alcança a velocidade de um emulador nativo (ver acima).
 - 3DS e Switch não têm emulador integrado — apenas catálogo.
-- Saves e ROMs ficam só no navegador/aparelho onde foram importados; não há sincronização entre dispositivos.
+- Não há sincronização automática entre dispositivos — use "📦 Backup completo" / "📥 Restaurar backup" para levar tudo de um aparelho a outro.
